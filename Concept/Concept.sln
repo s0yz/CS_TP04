@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Concept", "Concept\Concept.csproj", "{5E732A68-BBC2-4765-AD92-09147E1225AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E732A68-BBC2-4765-AD92-09147E1225AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E732A68-BBC2-4765-AD92-09147E1225AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E732A68-BBC2-4765-AD92-09147E1225AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E732A68-BBC2-4765-AD92-09147E1225AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD94AFF0-4262-49E6-96CE-405205C21C81}
+	EndGlobalSection
+EndGlobal
