@@ -7,5 +7,7 @@ namespace Concept
 {
     public class Restaurant
     {
+
+
     }
 }

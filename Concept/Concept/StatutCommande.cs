@@ -15,6 +15,11 @@ namespace Concept
             this.m_Id = p_id;
             this.m_Libelle = p_libelle;
         }
+
+        public string getLibelle()
+        {
+            return this.m_Libelle;
+        }
     }
 
 }
