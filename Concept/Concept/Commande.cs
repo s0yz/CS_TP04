@@ -61,7 +61,6 @@ namespace Concept
             for (int i = 0; i < p_quantite; i++)
             {
                 this.m_ListeProduits.Add(p_produit);
-                this.m_ListeProduits.AddRange(Enumerable.Repeat(p_produit, p_quantite));
             }
         }
 
