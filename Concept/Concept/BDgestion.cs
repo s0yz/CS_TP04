@@ -120,7 +120,7 @@ namespace Concept
             // TODO
         }
 
-        public void Supprimer(Restaurant p_Utilisateur)
+        public void Supprimer(Restaurant p_Restaurant)
         {
             // TODO
         }
