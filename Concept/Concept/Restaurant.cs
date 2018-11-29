@@ -7,7 +7,10 @@ namespace Concept
 {
     public class Restaurant
     {
+        public Restaurant()
+        {
 
+        }
 
     }
 }
