@@ -10,6 +10,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:Substitution ID="Substitution1" runat="server" />
         </div>
     </form>
 </body>
