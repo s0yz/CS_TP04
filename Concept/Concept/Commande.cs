@@ -8,11 +8,7 @@ namespace Concept
 {
     public class Commande : IEnumerable<Produit>
     {
-        //private int m_Identifiant;
-        //private Utilisateur m_Client;
-        //private string m_AdresseLivraison;
-        //private DateTime m_Date;
-        //private StatutCommande m_Statut;
+        
         private List<Produit> m_ListeProduits;
 
         public Commande(Utilisateur p_client) :
@@ -36,20 +32,10 @@ namespace Concept
 
         public int Identifiant { get; private set; }
 
-        //public Utilisateur getClient()
-        //{
-        //    return this.m_Client;
-        //}
+      
         public Utilisateur Client { get; private set; }
 
-        //public string getAdresse()
-        //{
-        //    return this.m_AdresseLivraison;
-        //}
-        //public void setAdresse(string p_adresse)
-        //{
-        //    this.m_AdresseLivraison = p_adresse;
-        //}
+      
         public string AdresseLivraison { get; set; }
         
         public DateTime Date { get; private set; }
@@ -72,15 +58,7 @@ namespace Concept
             }
         }
 
-        //public double CalculerTotal()
-        //{
-        //    double prix = 0;
-        //    foreach (Produit item in this.m_ListeProduits)
-        //    {
-        //        prix += item.getPrix();
-        //    }
-        //    return prix;
-        //}
+        
         public double CalculerTotal() => this.Sum(p => p.getPrix());
 
         public IEnumerator<Produit> GetEnumerator() => m_ListeProduits.GetEnumerator();
