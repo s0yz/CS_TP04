@@ -1,5 +1,3 @@
-# CS_TP04
-
 ---
 Travail: TP04
 Cours: Conception de Systèmes
