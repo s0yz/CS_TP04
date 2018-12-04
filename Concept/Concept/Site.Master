@@ -15,7 +15,8 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+     <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="icon-font.css">
 </head>
 <body>
     <form runat="server">
@@ -39,32 +40,82 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" runat="server" href="~/">Nom de l'application</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Accueil</a></li>
-                        <li><a runat="server" href="~/About">À propos de</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="container body-content">
+       <header class="header">
+      <div class="header__media-icons-container">
+        <i class="header__icon-p icon-phone"></i>
+        <p class="header__telephone">514-886-7745</p>
+        <a href="#"><img src="img/facebook-logo.jpg" alt="Logo de Facebook" class="header__fb-logo"></a>
+      </div>
+      <div class="header__connection-container">
+        <i class="header__icon-u icon-user"></i>
+        <a href="#" class="header__connection-link">Se connecter</a>
+      </div>
+      <div class="header__logo-container">
+          <img src="img/logo.png" alt="Logo CONCEPT!" class="header__logo">
+      </div>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="#" class="nav__link">Menu</a></li>
+          <li class="nav__item"><a href="#" class="nav__link">Restaurant</a></li>
+          <li class="nav__item"><a href="#" class="nav__link">Carrière</a></li>
+          <li class="nav__item"><a href="#" class="nav__link">Heures d'ouverture</a></li>
+        </ul>
+      </nav>
+      <a href="#" class="btn btn--commander">Commander en ligne</a>
+    </header>
+        <div >
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Mon ASP.NET Application</p>
-            </footer>
+           
+           <footer class="footer">
+      <div class="row">
+        <div class="col-1-de-4">
+          <div class="footer-list-container">
+            <h5 class="footer-list-container__title">Menu CONCEPT!</h5>
+            <ul class="footer-list-container__list">
+              <li class="footer-list-container__items"><a href="#" class="footer-list-container__link">Trouver un menu</a></li>
+              <li class="footer-list-container__items"><a href="#" class="footer-list-container__link">Valeurs nutritionnelles</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1-de-4">
+         <div class="footer-list-container">
+            <h5 class="footer-list-container__title">Promotion</h5>
+            <ul class="footer-list-container__list">
+              <li class="footer-list-container__items"><a href="#" class="footer-list-container__link">Promotions en cours</a></li>
+              <li class="footer-list-container__items"><a href="#" class="footer-list-container__link">Cartes-cadeaux</a></li>
+              <li class="footer-list-container__items"><a href="#" class="footer-list-container__link">Coupons-rabais</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1-de-4">
+          <div class="footer-list-container">
+            <h5 class="footer-list-container__title">Heures d'ouverture</h5>
+            <ul class="footer-list-container__list">
+              <li class="footer-list-container__items"><a href="" class="footer-list-container__link">Du dimanche au samedi</a></li>
+              <li class="footer-list-container__items"><a href="" class="footer-list-container__link">de 9h à 22h</a></li>
+            </ul>
+          </div> 
+        </div>
+        <div class="col-1-de-4">
+          <div class="footer-list-container">
+            <h5 class="footer-list-container__title">A propos</h5>
+            <ul class="footer-list-container__list">
+              <li class="footer-list-container__items"><a href="#" class="footer-list-container__link">Qui sommes-nous</a></li>
+              <li class="footer-list-container__items"><a href="#" class="footer-list-container__link">Mission et vision</a></li>
+              <li class="footer-list-container__items"><a href="#" class="footer-list-container__link">Responsabilité sociale</a></li>
+              <li class="footer-list-container__items"><a href="#" class="footer-list-container__link">Donner votre opinion</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p class="copyright__copy">Tous droits réservés CONCEPT! 2018</p>
+        <a href="" class="copyright__link">Conception MPFC Design</a>
+        <a href="" class="copyright__link copyright--r1">Conditions d'utilisation</a>
+        <a href="" class="copyright__link copyright--r">Aide</a>
+      </div>
+    </footer>
         </div>
 
     </form>
