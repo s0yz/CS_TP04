@@ -26,6 +26,4 @@ incomplète de l’application finale.
 * BobAlcatraz
 * FrançoisLetourneau
 * Philmo3
-
-## Cas d'utilisation
-![alt text](https://github.com/s0yz/CS_TP04/blob/master/UC.png)
+* s0yz
