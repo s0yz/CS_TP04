@@ -117,6 +117,7 @@
     <Content Include="CreerCompte.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="GestionMenu.aspx" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -194,6 +195,12 @@
     </Compile>
     <Compile Include="CreerCompte.aspx.designer.cs">
       <DependentUpon>CreerCompte.aspx</DependentUpon>
+    <Compile Include="GestionMenu.aspx.cs">
+      <DependentUpon>GestionMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionMenu.aspx.designer.cs">
+      <DependentUpon>GestionMenu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
