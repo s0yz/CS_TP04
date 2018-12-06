@@ -117,6 +117,7 @@
     <Content Include="App_Data\Concept_log.ldf">
       <DependentUpon>Concept.mdf</DependentUpon>
     </Content>
+    <Content Include="GestionMenu.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -192,6 +193,13 @@
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionMenu.aspx.cs">
+      <DependentUpon>GestionMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionMenu.aspx.designer.cs">
+      <DependentUpon>GestionMenu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
