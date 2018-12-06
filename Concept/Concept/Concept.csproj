@@ -114,6 +114,7 @@
     <Content Include="About.aspx" />
     <Content Include="Acceuil2.aspx" />
     <Content Include="Contact.aspx" />
+    <Content Include="CreerCompte.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -123,6 +124,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="icon-font.css" />
+    <Content Include="monCss.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -153,6 +155,7 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="style.css" />
+    <Content Include="SuiviDesCommandes.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -185,6 +188,13 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CreerCompte.aspx.cs">
+      <DependentUpon>CreerCompte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreerCompte.aspx.designer.cs">
+      <DependentUpon>CreerCompte.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,6 +217,13 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="StatutCommande.cs" />
+    <Compile Include="SuiviDesCommandes.aspx.cs">
+      <DependentUpon>SuiviDesCommandes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuiviDesCommandes.aspx.designer.cs">
+      <DependentUpon>SuiviDesCommandes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="TypeUtilisateur.cs" />
     <Compile Include="Utilisateur.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
