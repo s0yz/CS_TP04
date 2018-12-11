@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -7,13 +9,31 @@ namespace Concept
 {
     public class BDGestion
     {
-        private BDGestion() { }
+        private SqlConnection m_Connection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\admin\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf;Integrated Security = True");
+        private SqlDataAdapter m_Inserter = new SqlDataAdapter();
+
+        private BDGestion() {
+            m_Connection.Open();
+        }
 
         public static BDGestion Instance { get; } = new BDGestion();
 
-        public void ajouter(Commande p_Commande, int p_Id)
+        public void ajouter(Commande p_Commande, int p_Id_User, int p_Id_Resto)
         {
-            // TODO
+            int id_Commande = 0;
+            SqlCommand command = new SqlCommand("CreerCommande", this.m_Connection)
+            { CommandType = CommandType.StoredProcedure };
+            command.Parameters.AddWithValue("@p_Id_Utilisateur", p_Id_User);
+            command.Parameters.AddWithValue("@p_Id_Restaurant", p_Id_Resto);
+            command.Parameters.AddWithValue("@p_Id_Commande", id_Commande);
+            command.Parameters.AddWithValue("@p_Adresse", p_Commande.AdresseLivraison);
+            command.ExecuteNonQuery();
+            command = new SqlCommand("AjouterDansCommande", this.m_Connection){ CommandType = CommandType.StoredProcedure };
+            foreach (KeyValuePair<Produit, uint> produit in p_Commande)
+            {
+                command.Parameters.AddWithValue("@p_Id_Commande", id_Commande);
+                command.Parameters.AddWithValue("@p_Id_Produit", produit.Key);
+            }
         }
 
         public void ajouter(Produit p_Produit)
@@ -28,7 +48,15 @@ namespace Concept
 
         public void ajouter(Utilisateur p_Utilisateur)
         {
-            // TODO
+            SqlCommand command = new SqlCommand("CreerUtilisateur", this.m_Connection)
+            { CommandType = CommandType.StoredProcedure };
+            command.Parameters.AddWithValue("@p_nom", p_Utilisateur.getNom());
+            command.Parameters.AddWithValue("@p_password", p_Utilisateur.getMotDePasse());
+            command.Parameters.AddWithValue("@p_adresse", p_Utilisateur.getAdresse());
+            command.Parameters.AddWithValue("@p_email", p_Utilisateur.getEmail());
+            command.Parameters.AddWithValue("@p_type", p_Utilisateur.GetType());
+            command.Parameters.AddWithValue("@p_restaurant", 0);
+            command.ExecuteNonQuery();
         }
 
         // Peut-être pas nécessaire...
@@ -39,7 +67,7 @@ namespace Concept
 
         public IList<Commande> GetCommandes()
         {
-            // TODO
+            
             return null;
         }
 

@@ -113,6 +113,10 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Acceuil2.aspx" />
+    <Content Include="App_Data\Concept.mdf" />
+    <Content Include="App_Data\Concept_log.ldf">
+      <DependentUpon>Concept.mdf</DependentUpon>
+    </Content>
     <Content Include="Contact.aspx" />
     <Content Include="CreerCompte.aspx" />
     <Content Include="favicon.ico" />
@@ -242,7 +246,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
