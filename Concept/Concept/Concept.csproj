@@ -189,6 +189,12 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CreerCompte.aspx.cs">
+      <DependentUpon>CreerCompte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreerCompte.aspx.designer.cs">
+      <DependentUpon>CreerCompte.aspx</DependentUpon>
     <Compile Include="GestionMenu.aspx.cs">
       <DependentUpon>GestionMenu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
