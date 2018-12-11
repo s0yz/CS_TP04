@@ -1,0 +1,33 @@
+﻿.conteneur{
+    border-style:solid;
+    border-color:black;
+    border-radius:25px;
+    position:relative;
+    height: 600px;
+    text-align:center;
+    width:150rem;
+    margin:0 auto;
+    margin-top:15px;
+}
+ 
+.block{
+    display:inline-block;
+    text-align:left;
+}
+.label {
+    display: block;
+    color: black;
+    margin: 10px 15px;
+    font-size: 1.7rem;
+}
+.text-box{
+    display:block;
+    width: 200px;
+    margin:10px 15px;
+}
+.titre{
+    margin:10px 15px;
+}
+.conteneur_btn{
+    display:block
+}

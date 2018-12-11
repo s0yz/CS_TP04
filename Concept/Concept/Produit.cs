@@ -64,7 +64,10 @@ namespace Concept
         {
             return this.m_Categorie;
         }
-
+        public int getNumeroCommande()
+        {
+            return this.m_Identifiant;
+        }
 
     }
 }
