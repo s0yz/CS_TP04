@@ -4,7 +4,9 @@
         <h1>Suivi des commandes</h1>
     </div>
     <div>
-      <%=   this.construireHtml(0)  %>
+      <%=   
+          this.construireHtml()
+              %>
         
     </div>
     
