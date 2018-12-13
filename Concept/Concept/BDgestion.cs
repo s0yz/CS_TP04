@@ -10,7 +10,6 @@ namespace Concept
     public class BDGestion
     {
         private SqlConnection m_Connection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\admin\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf;Integrated Security = True");
-        private SqlDataAdapter m_Inserter = new SqlDataAdapter();
 
         private BDGestion() {
             m_Connection.Open();
@@ -32,13 +31,22 @@ namespace Concept
             foreach (KeyValuePair<Produit, uint> produit in p_Commande)
             {
                 command.Parameters.AddWithValue("@p_Id_Commande", id_Commande);
-                command.Parameters.AddWithValue("@p_Id_Produit", produit.Key);
+                command.Parameters.AddWithValue("@p_Id_Produit", produit.Key.Id);
+                command.Parameters.AddWithValue("@p_Id_Commande", produit.Value);
+                command.ExecuteNonQuery();
             }
         }
 
         public void ajouter(Produit p_Produit)
         {
-            // TODO
+            SqlCommand command = new SqlCommand("CreerProduit", this.m_Connection)
+            { CommandType = CommandType.StoredProcedure };
+            command.Parameters.AddWithValue("@p_Nom", p_Produit.Nom);
+            command.Parameters.AddWithValue("@p_Desc", p_Produit.Description);
+            command.Parameters.AddWithValue("@p_Prix", p_Produit.Prix);
+            command.Parameters.AddWithValue("@p_Path", "");
+            command.Parameters.AddWithValue("@p_Categorie", p_Produit.Categorie);
+            command.ExecuteNonQuery();
         }
 
         public void ajouter(Restaurant p_Restaurant)
@@ -50,12 +58,12 @@ namespace Concept
         {
             SqlCommand command = new SqlCommand("CreerUtilisateur", this.m_Connection)
             { CommandType = CommandType.StoredProcedure };
-            command.Parameters.AddWithValue("@p_nom", p_Utilisateur.getNom());
-            command.Parameters.AddWithValue("@p_password", p_Utilisateur.getMotDePasse());
-            command.Parameters.AddWithValue("@p_adresse", p_Utilisateur.getAdresse());
-            command.Parameters.AddWithValue("@p_email", p_Utilisateur.getEmail());
-            command.Parameters.AddWithValue("@p_type", p_Utilisateur.GetType());
-            command.Parameters.AddWithValue("@p_restaurant", 0);
+            command.Parameters.AddWithValue("@p_nom", p_Utilisateur.Nom);
+            command.Parameters.AddWithValue("@p_password", p_Utilisateur.MotDePasse);
+            command.Parameters.AddWithValue("@p_adresse", p_Utilisateur.Adresse);
+            command.Parameters.AddWithValue("@p_email", p_Utilisateur.Email);
+            command.Parameters.AddWithValue("@p_type", p_Utilisateur.Type));
+            command.Parameters.AddWithValue("@p_restaurant", p_Utilisateur.Restaurant == null ? 0 : p_Utilisateur.Restaurant.Id);
             command.ExecuteNonQuery();
         }
 
@@ -74,6 +82,16 @@ namespace Concept
         public IList<Commande> GetCommandes(int p_Id)
         {
             // TODO
+            return null;
+        }
+
+        public IList<Commande> GetCommandesParStatut(int p_Id_Resto, char p_Id_Statut)
+        {
+            SqlCommand command = new SqlCommand("GetCommandesParStatut", this.m_Connection)
+            { CommandType = CommandType.StoredProcedure };
+            command.Parameters.AddWithValue("@p_Id_Resto", p_Id_Resto);
+            command.Parameters.AddWithValue("@p_Id_Statut", p_Id_Statut);
+            command.ExecuteNonQuery();
             return null;
         }
 
@@ -149,6 +167,11 @@ namespace Concept
         }
 
         public void Supprimer(Restaurant p_Restaurant)
+        {
+            // TODO
+        }
+
+        public void SetStatutCommande(int p_Id_Commande, char p_Id_Statut)
         {
             // TODO
         }
