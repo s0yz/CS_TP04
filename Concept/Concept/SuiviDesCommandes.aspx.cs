@@ -24,13 +24,13 @@ namespace Concept
             if (this.Request.Form["commandeA"] != null)
             {
                 int cmd = Convert.ToInt32(this.Request.Form["commandeA"]);
-                BDGestion.Instance.setStatutCommande(cmd, 'A');
+                BDGestion.Instance.SetStatutCommande(cmd, 'A');
                 this.Request.Form["commandeA"] = null;
             }
             else if(this.Request.Form["commandeR"] != null)
             {
                 int cmd = Convert.ToInt32(this.Request.Form["commandeR"]);
-                BDGestion.Instance.setStatutCommande(cmd, 'R');
+                BDGestion.Instance.SetStatutCommande(cmd, 'R');
                 this.Request.Form["commandeR"] = null;
             }
 

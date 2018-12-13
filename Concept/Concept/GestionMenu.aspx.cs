@@ -18,11 +18,12 @@ namespace Concept
             {
                 m_Produits = new List<Produit>();
             }
-            this.Menu.DataSource = m_Produits;
+            m_Produits.Add(new Produit("allo", "bonsoir", 50.0m,
+           "", new CategorieProduit('b', "Boisson")));
+            this.Menu.DataSource = m_Produits.Select(p => new ProdView(p));
             this.Menu.DataBind();
             
-            m_Produits.Add(new Produit("allo", "bonsoir", 0.0m,
-            "", new CategorieProduit('b', "Boisson")));
+            
 
         }
     }
