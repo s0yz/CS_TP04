@@ -9,10 +9,16 @@ namespace Concept
 {
     public class BDGestion
     {
+        public readonly StatutCommande[] STATUT_COMMANDE;
+        public readonly CategorieProduit[] CATEGORIE_PRODUIT;
+        public readonly TypeUtilisateur[] TYPE_UTILISATEUR;
         private SqlConnection m_Connection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\admin\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf;Integrated Security = True");
 
         private BDGestion() {
             m_Connection.Open();
+            this.STATUT_COMMANDE = this.GetStatutsCommande().ToArray();
+            this.CATEGORIE_PRODUIT = this.GetCategoriesProduit().ToArray();
+            this.TYPE_UTILISATEUR = this.GetTypesUtilisateur().ToArray();
         }
 
         public static BDGestion Instance { get; } = new BDGestion();
@@ -62,7 +68,7 @@ namespace Concept
             command.Parameters.AddWithValue("@p_password", p_Utilisateur.MotDePasse);
             command.Parameters.AddWithValue("@p_adresse", p_Utilisateur.Adresse);
             command.Parameters.AddWithValue("@p_email", p_Utilisateur.Email);
-            command.Parameters.AddWithValue("@p_type", p_Utilisateur.Type));
+            command.Parameters.AddWithValue("@p_type", p_Utilisateur.Type);
             command.Parameters.AddWithValue("@p_restaurant", p_Utilisateur.Restaurant == null ? 0 : p_Utilisateur.Restaurant.Id);
             command.ExecuteNonQuery();
         }
