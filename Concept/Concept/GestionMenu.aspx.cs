@@ -21,8 +21,8 @@ namespace Concept
             this.Menu.DataSource = m_Produits;
             this.Menu.DataBind();
             
-            m_Produits.Add(new Produit("allo", "bonsoir", 0.0,
-            "", new CategorieProduit()));
+            m_Produits.Add(new Produit("allo", "bonsoir", 0.0m,
+            "", new CategorieProduit('b', "Boisson")));
 
         }
     }

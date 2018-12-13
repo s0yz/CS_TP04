@@ -10,12 +10,12 @@ namespace Concept
         private Dictionary<Produit, uint> m_Produits = new Dictionary<Produit, uint>();
 
         public Commande(Utilisateur p_client) :
-            this(p_client, BDGestion.Instance.GetStatutCommande(0), p_client.getAdresse())
+            this(p_client, BDGestion.Instance.GetStatutCommande(0), p_client.Adresse)
         {
         }
 
         public Commande(Utilisateur p_client, StatutCommande p_statut) :
-            this(p_client, p_statut, p_client.getAdresse())
+            this(p_client, p_statut, p_client.Adresse)
         {
         }
 
@@ -57,7 +57,7 @@ namespace Concept
             }
         }
         
-        public double CalculerTotal() => this.Sum(p => p.Key.getPrix() * p.Value);
+        public decimal CalculerTotal() => this.Sum(p => p.Key.Prix * p.Value);
 
         public IEnumerator<KeyValuePair<Produit, uint>> GetEnumerator() => this.m_Produits.GetEnumerator();
 

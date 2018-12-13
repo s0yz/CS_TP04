@@ -45,7 +45,7 @@ namespace Concept
 
                 foreach (KeyValuePair<Produit, uint> prod in item)
                 {
-                    html.Append( "<tr>" + prod.Value.ToString() + "x " + prod.Key.getDescription() + "</tr>");
+                    html.Append( "<tr>" + prod.Value.ToString() + "x " + prod.Key.Description + "</tr>");
                 }
 
                 html.Append ("<tr><h2>Statut : </h2>" + "<h2>" + item.Statut.ToString() + "</h2></tr></table>");
