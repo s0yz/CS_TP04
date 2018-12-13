@@ -62,7 +62,7 @@ namespace Concept
             command.Parameters.AddWithValue("@p_password", p_Utilisateur.MotDePasse);
             command.Parameters.AddWithValue("@p_adresse", p_Utilisateur.Adresse);
             command.Parameters.AddWithValue("@p_email", p_Utilisateur.Email);
-            command.Parameters.AddWithValue("@p_type", p_Utilisateur.Type));
+            command.Parameters.AddWithValue("@p_type", p_Utilisateur.Type);
             command.Parameters.AddWithValue("@p_restaurant", p_Utilisateur.Restaurant == null ? 0 : p_Utilisateur.Restaurant.Id);
             command.ExecuteNonQuery();
         }

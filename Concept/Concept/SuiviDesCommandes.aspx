@@ -7,7 +7,7 @@
       <%=   
           this.construireHtml()
               %>
-        
+             <input type="type" name="name" value=""  />
     </div>
     </div>
    

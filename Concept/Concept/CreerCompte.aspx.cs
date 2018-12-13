@@ -13,5 +13,15 @@ namespace Concept
         {
 
         }
+
+        protected void click_accepte(object sender, EventArgs e)
+        {
+
+        }
+
+        private bool verif()
+        {
+            return this.tb_nom.Text != "" && this.tb_motDePasse.Text != "" && this.tb_motDePasse.Text == this.tb_verifPasse.Text && this.ddl_typeUtilisateur.SelectedValue != null;
+        }
     }
 }
