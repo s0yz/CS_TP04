@@ -18,13 +18,14 @@
             <asp:TextBox id="tb_nom" runat="server" CssClass="text-box" />
             <asp:TextBox id="tb_motDePasse" runat="server" CssClass="text-box"  />
             <asp:TextBox id="tb_verifPasse" runat="server" CssClass="text-box"  />
-            <asp:DropDownList runat="server" CssClass="text-box">
+            <asp:DropDownList ID="ddl_typeUtilisateur" runat="server" CssClass="text-box" DataSourceID="SqlDataSource1" DataTextField="desc_type" DataValueField="id_type">
             </asp:DropDownList>
-            <asp:TextBox id="tb_typeUtilisateur" runat="server" CssClass="text-box"  />
+            <asp:TextBox id="tb_email" runat="server" CssClass="text-box"  />
         </div>
         <div class="conteneur_btn">
-            <asp:Button Text="Accepter" runat="server" CssClass="btn" />
+            <asp:Button Text="Accepter" runat="server" CssClass="btn" OnClick="click_accepte" />
             <asp:Button Text="Annuler" runat="server" CssClass="btn" />
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [desc_type], [id_type] FROM [tbl_type_utilisateur] ORDER BY [id_type]"></asp:SqlDataSource>
         </div>
       
         
