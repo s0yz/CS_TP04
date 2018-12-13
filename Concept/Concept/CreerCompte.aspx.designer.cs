@@ -40,12 +40,30 @@ namespace Concept {
         protected global::System.Web.UI.WebControls.TextBox tb_verifPasse;
         
         /// <summary>
-        /// Contrôle tb_typeUtilisateur.
+        /// Contrôle ddl_typeUtilisateur.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_typeUtilisateur;
+        protected global::System.Web.UI.WebControls.DropDownList ddl_typeUtilisateur;
+        
+        /// <summary>
+        /// Contrôle tb_email.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_email;
+        
+        /// <summary>
+        /// Contrôle SqlDataSource1.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
     }
 }
