@@ -2,13 +2,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" href="monCss.css">
     <div >
-        <h1>Suivi des commandes</h1>
+        <section class="suivi-commandes-container">
+         <h1 class="suivi-commandes-container__titre">Suivi des commandes</h1>
          <div>
-      <%=   
-          this.construireHtml()
-              %>
+                <%=
+                    this.construireHtml()
+                    %>
              <input type="type" name="name" value=""  />
     </div>
+            </section>
     </div>
    
     
