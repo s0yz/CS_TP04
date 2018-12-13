@@ -9,7 +9,9 @@
     margin:0 auto;
     margin-top:15px;
 }
- 
+ .conteneur h2{
+     color:red;
+ }
 .block{
     display:inline-block;
     text-align:left;
@@ -30,4 +32,13 @@
 }
 .conteneur_btn{
     display:block
+}
+input {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    padding: 10px 15px;
+    background: #282828;
+    font-size: 1.9rem;
+    border-radius: 5px;
 }
