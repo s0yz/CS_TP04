@@ -10,15 +10,20 @@ namespace Concept
     public partial class GestionMenu : System.Web.UI.Page
     {
 
-        List<Produit> m_Produits = new List<Produit>();
+        private static List<Produit> m_Produits;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!this.IsPostBack)
+            {
+                m_Produits = new List<Produit>();
+            }
             this.Menu.DataSource = m_Produits;
-            this.Menu.UpdateRow(0, false);
+            this.Menu.DataBind();
+            
             m_Produits.Add(new Produit("allo", "bonsoir", 0.0,
             "", new CategorieProduit()));
-            
+
         }
     }
 }
