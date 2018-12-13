@@ -31,11 +31,11 @@ namespace Concept
         
         public Utilisateur Client { get; private set; }
 
-        public string AdresseLivraison { get; set; }
+        public string AdresseLivraison { get; private set; }
         
         public DateTime Date { get; private set; }
 
-        public StatutCommande Statut { get; set; }
+        public StatutCommande Statut { get; private set; }
 
         public void Ajouter(Produit p_produit, uint p_quantite)
         {

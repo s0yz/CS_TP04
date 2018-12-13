@@ -199,6 +199,8 @@
     </Compile>
     <Compile Include="CreerCompte.aspx.designer.cs">
       <DependentUpon>CreerCompte.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FauxMain.cs" />
     <Compile Include="GestionMenu.aspx.cs">
       <DependentUpon>GestionMenu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
