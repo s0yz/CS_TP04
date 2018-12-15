@@ -7,13 +7,13 @@ namespace Concept
 {
     public class StatutCommande
     {
-        public StatutCommande(int p_id, string p_libelle)
+        public StatutCommande(char p_id, string p_libelle)
         {
             this.ID = p_id;
             this.Libelle = p_libelle;
         }
 
-        public int ID { get; private set; }
+        public char ID { get; private set; }
 
         public string Libelle { get; private set; }
 }
