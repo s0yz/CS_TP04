@@ -26,7 +26,7 @@ namespace Concept
             this.Image = p_Image;
             this.Categorie = p_Categorie;
         }
-
+                
         public int Id { get; private set; }
 
         public string Nom { get; private set; }
