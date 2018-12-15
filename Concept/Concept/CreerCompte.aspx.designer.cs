@@ -58,12 +58,39 @@ namespace Concept {
         protected global::System.Web.UI.WebControls.TextBox tb_email;
         
         /// <summary>
-        /// Contrôle SqlDataSource1.
+        /// Contrôle tb_adresse.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.TextBox tb_adresse;
+        
+        /// <summary>
+        /// Contrôle ddl_Restaurant.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_Restaurant;
+        
+        /// <summary>
+        /// Contrôle SqlDataRestaurant.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataRestaurant;
+        
+        /// <summary>
+        /// Contrôle SqlDataTypeUtilisateur.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataTypeUtilisateur;
     }
 }
