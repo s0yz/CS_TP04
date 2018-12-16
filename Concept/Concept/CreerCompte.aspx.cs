@@ -29,6 +29,8 @@ namespace Concept
                                       this.tb_adresse.Text,
                                       this.tb_email.Text,
                                       BDGestion.Instance.GetRestaurant(Convert.ToInt32( this.ddl_Restaurant.SelectedValue)));
+                BDGestion.Instance.ajouter(nouveau);
+                BDGestion.Instance.Sauvegarder();
             }
         }
 
