@@ -9,6 +9,15 @@ namespace Concept
     {        
         private Dictionary<Produit, uint> m_Produits = new Dictionary<Produit, uint>();
 
+        public Commande(int p_Id, Utilisateur p_Client, StatutCommande p_Statut, string p_Adresse, DateTime p_Date)
+        {
+            Identifiant = p_Id;
+            Client = p_Client;
+            Statut = p_Statut;
+            AdresseLivraison = p_Adresse;
+            Date = p_Date;
+        }
+
         public Commande(Utilisateur p_client) :
             this(p_client, BDGestion.Instance.GetStatutCommande(0), p_client.Adresse)
         {
