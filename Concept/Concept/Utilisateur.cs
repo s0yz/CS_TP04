@@ -20,13 +20,13 @@ namespace Concept
         }
 
         public Utilisateur(int p_id, string p_nom, string p_passe, TypeUtilisateur p_typeU,
-            string p_adresse, string p_email, Restaurant p_restaurant)
+            string p_adresse, string p_email, Restaurant p_restaurant, IList<Commande> p_Commandes)
         {
             this.Id = p_id;
             this.Nom = p_nom;
             this.MotDePasse = p_passe;
             this.Type = p_typeU;
-            this.Commandes = new List<Commande>();
+            this.Commandes = p_Commandes;
             this.Adresse = p_adresse;
             this.Email = p_email;
             this.Restaurant = p_restaurant;
