@@ -117,6 +117,8 @@
     <Content Include="App_Data\Concept_log.ldf">
       <DependentUpon>Concept.mdf</DependentUpon>
     </Content>
+    <Content Include="Authentification.aspx" />
+    <Content Include="Commander.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="CreerCompte.aspx" />
     <Content Include="favicon.ico" />
@@ -183,9 +185,23 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Authentification.aspx.cs">
+      <DependentUpon>Authentification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Authentification.aspx.designer.cs">
+      <DependentUpon>Authentification.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BDgestion.cs" />
     <Compile Include="CategorieProduit.cs" />
     <Compile Include="Commande.cs" />
+    <Compile Include="Commander.aspx.cs">
+      <DependentUpon>Commander.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Commander.aspx.designer.cs">
+      <DependentUpon>Commander.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
