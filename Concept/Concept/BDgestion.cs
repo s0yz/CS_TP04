@@ -9,25 +9,16 @@ namespace Concept
 {
     public class BDGestion
     {
-        public readonly Dictionary<char, StatutCommande> STATUT_COMMANDE;
-        public readonly Dictionary<char, CategorieProduit> CATEGORIE_PRODUIT;
-        public readonly Dictionary<char, TypeUtilisateur> TYPE_UTILISATEUR;
+        public readonly IDictionary<char, StatutCommande> STATUT_COMMANDE;
+        public readonly IDictionary<char, CategorieProduit> CATEGORIE_PRODUIT;
+        public readonly IDictionary<char, TypeUtilisateur> TYPE_UTILISATEUR;
         private SqlConnection m_Connection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\admin\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf;Integrated Security = True");
 
         private BDGestion() {
             m_Connection.Open();
-            foreach (StatutCommande statut in this.GetStatutsCommande())
-            {
-                this.STATUT_COMMANDE.Add(statut.ID, statut);
-            }
-            foreach (CategorieProduit categorie in this.GetCategoriesProduit())
-            {
-                this.CATEGORIE_PRODUIT.Add(categorie.Id, categorie);
-            }
-            foreach (TypeUtilisateur type in this.GetTypesUtilisateur())
-            {
-                this.TYPE_UTILISATEUR.Add(type.Id, type);
-            }
+            this.STATUT_COMMANDE = this.GetStatutsCommande();
+            this.CATEGORIE_PRODUIT = this.GetCategoriesProduit();
+            this.TYPE_UTILISATEUR = this.GetTypesUtilisateur();
         }
 
         public static BDGestion Instance { get; } = new BDGestion();
@@ -48,7 +39,7 @@ namespace Concept
             {
                 command.Parameters.AddWithValue("@p_Id_Commande", id_Commande);
                 command.Parameters.AddWithValue("@p_Id_Produit", produit.Key.Id);
-                command.Parameters.AddWithValue("@p_Id_Commande", produit.Value);
+                command.Parameters.AddWithValue("@p_Nb", produit.Value);
                 command.ExecuteNonQuery();
             }
         }
@@ -217,7 +208,7 @@ namespace Concept
 
         public IList<Restaurant> GetRestaurants()
         {
-            SqlCommand command = new SqlCommand("GetRestaurant", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+            SqlCommand command = new SqlCommand("GetRestaurantAll", this.m_Connection) { CommandType = CommandType.StoredProcedure };
             SqlDataReader reader = command.ExecuteReader();
             List<Restaurant> restaurants = new List<Restaurant>();
             SqlDataReader menuGetter;
@@ -262,20 +253,82 @@ namespace Concept
 
         public Restaurant GetRestaurant(int p_Id)
         {
-            // TODO
-            return null;
-        }    
+            SqlCommand command = new SqlCommand("GetRestaurantUn", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+            command.Parameters.AddWithValue("@p_Id_Restaurant", p_Id);
+            SqlDataReader reader = command.ExecuteReader();
+            //Verifier
+            reader.Read();
+            Restaurant restaurant = new Restaurant(
+                (int)reader["id_restaurant"],
+                (string)reader["adresse"],
+                (string)reader["telephone"],
+                (string)reader["path_image"]
+                );
+            restaurant.Menu = this.GetMenu((int)reader["id_menu"]);
+            return restaurant;
+        }
+        
+        public Utilisateur Authentifier(string p_Nom, string p_Password)
+        {
+            SqlCommand command = new SqlCommand("AuthentifierUser", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+            command.Parameters.AddWithValue("@p_Nom", p_Nom);
+            command.Parameters.AddWithValue("@p_Password", p_Password);
+            SqlDataReader reader = command.ExecuteReader();
+            //Verifier
+            if (reader.Read())
+            {
+                return new Utilisateur(
+                    (int)reader["id_utlisateur"],
+                    (string)reader["nom"],
+                    (string)reader["password_user"],
+                    TYPE_UTILISATEUR[(char)reader["id_type"]],
+                    (string)reader["adresse"],
+                    (string)reader["email"],
+                    this.GetRestaurant((int)reader["id_restaurant"]),
+                    this.GetCommandes((int)reader["id_utilisateur"])
+                    );
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         public Utilisateur GetUtilisateur(int p_Id)
         {
-            // TODO
-            return null;
+            SqlCommand command = new SqlCommand("GetUtilisateur", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+            command.Parameters.AddWithValue("@p_Id_Utilisateur", p_Id);
+            SqlDataReader reader = command.ExecuteReader();
+            //Verifier
+            if (reader.Read())
+            {
+                return new Utilisateur(
+                    (int)reader["id_utlisateur"],
+                    (string)reader["nom"],
+                    (string)reader["password_user"],
+                    TYPE_UTILISATEUR[(char)reader["id_type"]],
+                    (string)reader["adresse"],
+                    (string)reader["email"],
+                    this.GetRestaurant((int)reader["id_restaurant"]),
+                    this.GetCommandes((int)reader["id_utilisateur"])
+                    );
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public IList<TypeUtilisateur> GetTypesUtilisateur()
+        public IDictionary<char, TypeUtilisateur> GetTypesUtilisateur()
         {
-            // TODO
-            return null;
+            SqlCommand command = new SqlCommand("GetTypesUtilisateur", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+            SqlDataReader reader = command.ExecuteReader();
+            Dictionary<char, TypeUtilisateur> types = new Dictionary<char, TypeUtilisateur>();
+            while (reader.Read())
+            {
+                types.Add((char)reader["id_type"], new TypeUtilisateur((char)reader["id_type"], (string)reader["desc_type"]));
+            }
+            return types;
         }
 
         public TypeUtilisateur GetTypeUtilisateur(int p_Id)
@@ -284,10 +337,16 @@ namespace Concept
             return null;
         }
 
-        public IList<StatutCommande> GetStatutsCommande()
+        public IDictionary<char, StatutCommande> GetStatutsCommande()
         {
-            // TODO
-            return null;
+            SqlCommand command = new SqlCommand("GetStatutCommande", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+            SqlDataReader reader = command.ExecuteReader();
+            Dictionary<char, StatutCommande> statut = new Dictionary<char, StatutCommande>();
+            while (reader.Read())
+            {
+                statut.Add((char)reader["id_type"], new StatutCommande((char)reader["id_statut"], (string)reader["desc_statut"]));
+            }
+            return statut;
         }
 
         public StatutCommande GetStatutCommande(int p_Id)
@@ -296,10 +355,16 @@ namespace Concept
             return null;
         }
 
-        public IList<CategorieProduit> GetCategoriesProduit()
+        public IDictionary<char, CategorieProduit> GetCategoriesProduit()
         {
-            // TODO
-            return null;
+            SqlCommand command = new SqlCommand("GetTypesUtilisateur", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+            SqlDataReader reader = command.ExecuteReader();
+            Dictionary<char, CategorieProduit> categories = new Dictionary<char, CategorieProduit>();
+            while (reader.Read())
+            {
+                categories.Add((char)reader["id_type"], new CategorieProduit((char)reader["id_cat"], (string)reader["desc_cat"]));
+            }
+            return categories;
         }
 
         public CategorieProduit GetCategorieProduit(int p_Id)
@@ -320,7 +385,11 @@ namespace Concept
 
         public void SetStatutCommande(int p_Id_Commande, char p_Id_Statut)
         {
-            // TODO
+            SqlCommand command = new SqlCommand("SetStatutCommande", this.m_Connection)
+            { CommandType = CommandType.StoredProcedure };
+            command.Parameters.AddWithValue("@p_Id_Commande", p_Id_Commande);
+            command.Parameters.AddWithValue("@p_Id_Statut", p_Id_Statut);
+            command.ExecuteNonQuery();
         }
     }
 }
