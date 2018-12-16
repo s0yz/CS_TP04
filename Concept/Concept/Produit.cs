@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
 namespace Concept
 {
     public class Produit
-    {
+    {        
         public Produit(int p_Id, string p_Nom, string p_Description, decimal p_Prix, string p_Image, CategorieProduit p_Categorie)
         {
             this.Id = p_Id;
@@ -29,14 +30,19 @@ namespace Concept
                 
         public int Id { get; private set; }
 
+        [DisplayName("Produit")]
         public string Nom { get; private set; }
 
+        [DisplayName("Description")]
         public string Description { get; private set; }
 
+        [DisplayName("Prix")]
         public decimal Prix { get; private set; }
 
+        [DisplayName("Image")]
         public string Image { get; private set; }
 
+        [DisplayName("Catégorie")]
         public CategorieProduit Categorie{ get; private set; }
     }
 }
