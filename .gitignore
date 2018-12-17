@@ -248,6 +248,8 @@ ServiceFabricBackup/
 *.rptproj.bak
 
 # SQL Server files
+*.mdf
+*.ldf
 *.ndf
 
 # Business Intelligence projects
@@ -334,3 +336,7 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+*.mdf
+*.ldf
+Concept/Concept/App_Data/Concept.mdf
+Concept/Concept/App_Data/Concept_log.ldf
