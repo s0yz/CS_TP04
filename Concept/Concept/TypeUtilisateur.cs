@@ -19,6 +19,8 @@ namespace Concept
         {
             //BDGestion.Instance.ajouter(this);
         }
+
+        public override string ToString() => Role;
     }
 }
 

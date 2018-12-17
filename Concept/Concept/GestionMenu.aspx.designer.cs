@@ -31,6 +31,15 @@ namespace Concept {
         protected global::System.Web.UI.WebControls.DropDownList ddl_restaurant;
         
         /// <summary>
+        /// Contrôle SqlDS_Resto.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDS_Resto;
+        
+        /// <summary>
         /// Contrôle btn_enregistrer.
         /// </summary>
         /// <remarks>
