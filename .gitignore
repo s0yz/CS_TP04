@@ -338,3 +338,5 @@ ASALocalRun/
 .localhistory/
 *.mdf
 *.ldf
+Concept/Concept/App_Data/Concept.mdf
+Concept/Concept/App_Data/Concept_log.ldf
