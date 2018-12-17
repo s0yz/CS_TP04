@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -9,10 +10,12 @@ namespace Concept
 {
     public class BDGestion
     {
+        public const string pathCed = @"U:\Soyz\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf";
+        public const string pathMax = @"C:\Users\admin\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf";
         public readonly IDictionary<char, StatutCommande> STATUT_COMMANDE;
         public readonly IDictionary<char, CategorieProduit> CATEGORIE_PRODUIT;
         public readonly IDictionary<char, TypeUtilisateur> TYPE_UTILISATEUR;
-        private SqlConnection m_Connection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\admin\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf;Integrated Security = True");
+        private SqlConnection m_Connection = new SqlConnection($@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename={pathMax};Integrated Security = True");
 
         private BDGestion() {
             m_Connection.Open();
@@ -42,6 +45,7 @@ namespace Concept
                 command.Parameters.AddWithValue("@p_Nb", produit.Value);
                 command.ExecuteNonQuery();
             }
+            receiver.Close();
         }
 
         public void ajouter(Produit p_Produit)
@@ -52,7 +56,7 @@ namespace Concept
             command.Parameters.AddWithValue("@p_Desc", p_Produit.Description);
             command.Parameters.AddWithValue("@p_Prix", p_Produit.Prix);
             command.Parameters.AddWithValue("@p_Path", "");
-            command.Parameters.AddWithValue("@p_Categorie", p_Produit.Categorie);
+            command.Parameters.AddWithValue("@p_Categorie", p_Produit.Categorie.Id);
             command.ExecuteNonQuery();
         }
 
@@ -99,6 +103,7 @@ namespace Concept
                 command.Parameters.AddWithValue("@p_Id_Menu", produit.Id);
                 command.ExecuteNonQuery();
             }
+            reader.Close();
         }
 
         // Peut-être pas nécessaire...
@@ -134,6 +139,7 @@ namespace Concept
                     commandes.Last<Commande>().Ajouter(produit.Key, produit.Value);
                 }
             }
+            reader.Close();
             return commandes;
         }
 
@@ -158,6 +164,7 @@ namespace Concept
                     commandes.Last<Commande>().Ajouter(produit.Key, produit.Value);
                 }
             }
+            reader.Close();
             return commandes;
         }
 
@@ -168,15 +175,24 @@ namespace Concept
             SqlDataReader reader = command.ExecuteReader();
             List<Produit> produits = new List<Produit>();
             while (reader.Read()) {
+                //produits.Add(new Produit(
+                //    (int)reader["id_produit"],
+                //    (string)reader["nom"],
+                //    (string)reader["desc_prod"],
+                //    (decimal)reader["prix"],
+                //    (string)reader["path_image"],
+                //    this.CATEGORIE_PRODUIT[(char)reader["id_cat"]]
+                //));
                 produits.Add(new Produit(
-                    (int)reader["id_produit"],
-                    (string)reader["nom"],
-                    (string)reader["desc_prod"],
-                    (decimal)reader["prix"],
-                    (string)reader["path_image"],
-                    this.CATEGORIE_PRODUIT[(char)reader["id_cat"]]
-                    ));
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetDecimal(3),
+                    reader.GetString(4),
+                    this.CATEGORIE_PRODUIT[Convert.ToChar(reader["id_cat"])]
+                ));
             }
+            reader.Close();
             return produits;
         }
 
@@ -197,6 +213,7 @@ namespace Concept
                     ), 
                     (uint)product_reader["nb"]);
             }
+            product_reader.Close();
             return commandes;
         }
 
@@ -228,6 +245,7 @@ namespace Concept
                 menuGetter.Read();
                 restaurants.Last<Restaurant>().Menu = GetMenu((int)menuGetter["id_menu"]);
             }
+            reader.Close();
             return restaurants;
         }
 
@@ -248,6 +266,7 @@ namespace Concept
                     CATEGORIE_PRODUIT[(char)reader["id_cat"]]
                     ));
             }
+            reader.Close();
             return menu;
         }
 
@@ -265,6 +284,7 @@ namespace Concept
                 (string)reader["path_image"]
                 );
             restaurant.Menu = this.GetMenu((int)reader["id_menu"]);
+            reader.Close();
             return restaurant;
         }
         
@@ -277,7 +297,7 @@ namespace Concept
             //Verifier
             if (reader.Read())
             {
-                return new Utilisateur(
+                var u = new Utilisateur(
                     (int)reader["id_utlisateur"],
                     (string)reader["nom"],
                     (string)reader["password_user"],
@@ -287,6 +307,8 @@ namespace Concept
                     this.GetRestaurant((int)reader["id_restaurant"]),
                     this.GetCommandes((int)reader["id_utilisateur"])
                     );
+                reader.Close();
+                return u;
             }
             else
             {
@@ -302,7 +324,7 @@ namespace Concept
             //Verifier
             if (reader.Read())
             {
-                return new Utilisateur(
+                var u = new Utilisateur(
                     (int)reader["id_utlisateur"],
                     (string)reader["nom"],
                     (string)reader["password_user"],
@@ -312,6 +334,8 @@ namespace Concept
                     this.GetRestaurant((int)reader["id_restaurant"]),
                     this.GetCommandes((int)reader["id_utilisateur"])
                     );
+                reader.Close();
+                return u;
             }
             else
             {
@@ -326,8 +350,10 @@ namespace Concept
             Dictionary<char, TypeUtilisateur> types = new Dictionary<char, TypeUtilisateur>();
             while (reader.Read())
             {
-                types.Add((char)reader["id_type"], new TypeUtilisateur((char)reader["id_type"], (string)reader["desc_type"]));
+                types.Add(Convert.ToChar(reader["id_type"]), new TypeUtilisateur(Convert.ToChar(reader["id_type"]), reader.GetString(1)));
+                //types.Add((char)reader["id_type"], new TypeUtilisateur((char)reader["id_type"], (string)reader["desc_type"]));
             }
+            reader.Close();
             return types;
         }
 
@@ -344,8 +370,10 @@ namespace Concept
             Dictionary<char, StatutCommande> statut = new Dictionary<char, StatutCommande>();
             while (reader.Read())
             {
-                statut.Add((char)reader["id_type"], new StatutCommande((char)reader["id_statut"], (string)reader["desc_statut"]));
+                statut.Add(Convert.ToChar(reader["id_statut"]), new StatutCommande(Convert.ToChar(reader["id_statut"]), reader.GetString(1)));
+                //statut.Add((char)reader["id_statut"], new StatutCommande((char)reader["id_statut"], reader["desc_statut"].ToString()));
             }
+            reader.Close();
             return statut;
         }
 
@@ -357,20 +385,21 @@ namespace Concept
 
         public IDictionary<char, CategorieProduit> GetCategoriesProduit()
         {
-            SqlCommand command = new SqlCommand("GetTypesUtilisateur", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+            SqlCommand command = new SqlCommand("GetCategoriesProduits", this.m_Connection) { CommandType = CommandType.StoredProcedure };
             SqlDataReader reader = command.ExecuteReader();
             Dictionary<char, CategorieProduit> categories = new Dictionary<char, CategorieProduit>();
             while (reader.Read())
             {
-                categories.Add((char)reader["id_type"], new CategorieProduit((char)reader["id_cat"], (string)reader["desc_cat"]));
+                categories.Add(Convert.ToChar(reader["id_cat"]), new CategorieProduit(Convert.ToChar(reader["id_cat"]), reader.GetString(1)));
+                //categories.Add((char)reader["id_cat"], new CategorieProduit((char)reader["id_cat"], (string)reader["desc_cat"]));
             }
+            reader.Close();
             return categories;
         }
 
-        public CategorieProduit GetCategorieProduit(int p_Id)
+        public CategorieProduit GetCategorieProduit(char p_Id)
         {
-            // TODO
-            return null;
+            return GetCategoriesProduit()[p_Id];
         }
 
         public void Supprimer(Utilisateur p_Utilisateur)
