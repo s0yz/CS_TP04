@@ -44,7 +44,7 @@ namespace Concept
 
         public string Email { get; private set; }
 
-        public List<Commande> Commandes { get; private set; }
+        public IList<Commande> Commandes { get; private set; }
 
         public Restaurant Restaurant { get; private set; }
 

@@ -7,9 +7,6 @@ namespace Concept
 {
     public class Menu
     {
-        private int m_Identifiant;
-        private List<Produit> m_ListeProduits;
-
         public Menu()
         {
             this.Id = 0;
@@ -24,16 +21,16 @@ namespace Concept
 
         public int Id { get; private set; }
 
-        public List<Produit> ListeProduit { get; private set; }
+        public IList<Produit> ListeProduit { get; private set; }
 
         public void Ajouter(Produit p_produit)
         {
-            this.m_ListeProduits.Add(p_produit);
+            this.ListeProduit.Add(p_produit);
         }
 
         public void Retirer(Produit p_produit)
         {
-            this.m_ListeProduits.Remove(p_produit);
+            this.ListeProduit.Remove(p_produit);
         }
     }
 }
