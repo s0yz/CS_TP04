@@ -49,13 +49,13 @@ namespace Concept {
         protected global::System.Web.UI.WebControls.Button btn_annuler;
         
         /// <summary>
-        /// Contrôle Menu.
+        /// Contrôle view_Menu.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView Menu;
+        protected global::System.Web.UI.WebControls.GridView view_Menu;
         
         /// <summary>
         /// Contrôle btn_ajouter.
@@ -76,12 +76,12 @@ namespace Concept {
         protected global::System.Web.UI.WebControls.Button btn_retirer;
         
         /// <summary>
-        /// Contrôle Produits.
+        /// Contrôle view_Produits.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView Produits;
+        protected global::System.Web.UI.WebControls.GridView view_Produits;
     }
 }
