@@ -13,7 +13,7 @@ namespace Concept
         public readonly IDictionary<char, CategorieProduit> CATEGORIE_PRODUIT;
         public readonly IDictionary<char, TypeUtilisateur> TYPE_UTILISATEUR;
         //Soyez sur d'avoir une référence a votre MDF local!!!
-        private SqlConnection m_Connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\admin\Desktop\CS_TP04\Concept\Concept\App_Data\Concept.mdf;Integrated Security=True;");
+        private SqlConnection m_Connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Concept.mdf;Integrated Security=True;Connect Timeout=30");
 
 
         private BDGestion() {
@@ -179,7 +179,7 @@ namespace Concept
                     reader.GetString(1),
                     reader.GetString(2),
                     reader.GetDecimal(3),
-                    reader.GetString(4),
+                    "",//reader.GetString(4),
                     this.CATEGORIE_PRODUIT[Convert.ToChar(reader["id_cat"])]
                     ));
             }
