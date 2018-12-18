@@ -19,6 +19,9 @@ body {
 
 .btn {
   text-decoration: none;
+  border: none;
+  margin: 0;
+  padding: 0;
   color: #fff;
   display: inline-block;
   padding: 10px 15px;
@@ -36,6 +39,11 @@ body {
     .btn--commander:hover {
       background: #fff;
       color: #282828; }
+  .btn--quantite {
+    width: 5rem;
+    cursor: pointer; }
+  .btn--commande-ajouter {
+    width: 100%; }
 
 .carriere-container {
   width: 100%;
@@ -58,6 +66,60 @@ body {
   .carriere-container__link {
     color: #fff;
     text-decoration: none; }
+
+.commande-container {
+  padding: 1rem 3rem;
+  border: 3px solid #000;
+  position: relative;
+  background: #fcfcfc; }
+  .commande-container:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .commande-container__numero {
+    font-size: 2.3rem;
+    margin-bottom: 1.5rem; }
+  .commande-container__description {
+    font-size: 2rem;
+    margin-bottom: .7rem; }
+  .commande-container__description-item {
+    font-size: 1.5rem; }
+  .commande-container__statut {
+    font-size: 2rem;
+    float: left;
+    margin-top: 2rem; }
+  .commande-container__btn-container {
+    float: right;
+    margin-top: 2rem; }
+
+.connexion-form {
+  max-width: 50rem;
+  min-width: 35rem; }
+  .connexion-form .btn-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-around; }
+  .connexion-form__text-input {
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 3px;
+    border: 0;
+    box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.2); }
+  .connexion-form__mpoublie {
+    color: #000;
+    font-size: 1.3rem; }
+  .connexion-form__error-msg {
+    display: none;
+    background: orangered;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 1rem 0;
+    border-radius: 3px;
+    margin-top: 1rem; }
 
 .footer-list-container {
   text-align: center; }
@@ -153,6 +215,42 @@ body {
   .media-sociaux-container--youtube {
     background-image: url(../../img/facebook-logo.jpg); }
 
+.menu-item {
+  margin-right: 3rem;
+  padding: 2rem 1rem;
+  background: #fff;
+  text-align: center;
+  border-radius: .3rem;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3); }
+  .menu-item__titre {
+    font-size: 2.5rem;
+    margin-bottom: 1rem; }
+  .menu-item__prix {
+    font-size: 2rem;
+    margin-bottom: 1rem; }
+  .menu-item__img {
+    width: 100%;
+    background-size: cover; }
+  .menu-item__details {
+    margin-bottom: 2rem;
+    color: #000;
+    font-size: 1.4rem;
+    display: block; }
+  .menu-item__quantite-container {
+    margin-bottom: 1rem; }
+  .menu-item__quantite {
+    border: 1px solid lightgrey;
+    font-size: 1.5rem;
+    border-radius: .3rem;
+    padding-top: .8rem;
+    width: 4rem;
+    vertical-align: top;
+    height: 4rem;
+    display: inline-block;
+    text-align: center;
+    margin-left: 1rem;
+    margin-right: 1rem; }
+
 .footer {
   position: relative; }
 
@@ -186,21 +284,25 @@ body {
   width: 100%;
   content: "";
   display: table;
-  clear: both; }
+  clear: both;
+  margin-bottom: 2rem; }
+  .row .col-1-de-2 {
+    width: calc(100% / 2);
+    float: left; }
   .row .col-1-de-3 {
     width: calc((100% - 20px) / 3);
     float: left; }
     .row .col-1-de-3:not(:last-child) {
       margin-right: 10px; }
-  .row .col-1-de-2 {
-    width: calc(100% / 2);
-    float: left; }
   .row .col-1-de-4 {
     float: left;
     width: calc(100% / 4); }
+  .row .col-3-de-4 {
+    width: calc(((100% - 25%) / 3) * 3);
+    float: left; }
 
 .header {
-  height: 15vh;
+  height: 150px;
   background-color: #282828;
   margin: 0 auto;
   max-width: 150rem;
@@ -313,3 +415,41 @@ body {
   content: "";
   display: table;
   clear: both; }
+
+.connexion-container {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 50%;
+  max-width: 50rem;
+  min-width: 40rem;
+  height: auto;
+  margin-top: 5rem;
+  padding: 1rem 2rem; }
+  .connexion-container__title {
+    border-bottom: 0.4rem solid #282828;
+    font-size: 3.5rem;
+    margin-bottom: 2.5rem; }
+
+.menu-commande-container {
+  max-width: 150rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem; }
+  .menu-commande-container .menu-list {
+    background: #fff;
+    list-style-type: none;
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-right: 2rem; }
+    .menu-commande-container .menu-list__item {
+      margin-bottom: 1rem; }
+
+.suivi-commandes-container {
+  max-width: 150rem;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 5rem; }
+  .suivi-commandes-container__titre {
+    font-size: 3.5rem;
+    margin-bottom: 2rem; }
