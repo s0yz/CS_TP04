@@ -8,6 +8,14 @@ namespace Concept
     public class Restaurant
     {
         private Menu m_Menu;
+
+        public Restaurant(string p_Adresse, string p_Telephone, string p_Path)
+        {
+            this.Adresse = p_Adresse;
+            this.Telephone = p_Telephone;
+            this.ImagePath = p_Path;
+        }
+
         public Restaurant(int p_Id, string p_Adresse, string p_Telephone, string p_Path)
         {
             this.Id = p_Id;
