@@ -10,14 +10,11 @@ namespace Concept
 {
     public class BDGestion
     {
-        public const string pathCed = @"U:\Soyz\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf";
-        public const string pathMax = @"C:\Users\admin\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf";
         public readonly IDictionary<char, StatutCommande> STATUT_COMMANDE;
         public readonly IDictionary<char, CategorieProduit> CATEGORIE_PRODUIT;
         public readonly IDictionary<char, TypeUtilisateur> TYPE_UTILISATEUR;
         //Soyez sur d'avoir une référence a votre MDF local!!!
-        private SqlConnection m_Connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\admin\Desktop\CS_TP04\Concept\Concept\App_Data\Concept.mdf;Integrated Security=True;");
-
+        private SqlConnection m_Connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Concept.mdf;Integrated Security=True;Connect Timeout=30");
         private BDGestion() {
             m_Connection.Open();
             this.STATUT_COMMANDE = this.GetStatutsCommande();
@@ -37,7 +34,7 @@ namespace Concept
             SqlDataReader receiver = command.ExecuteReader();
             //Verify
             receiver.Read();
-            int id_Commande = (int)receiver["id_commande"];
+            int id_Commande = receiver.GetInt32(0);
             command = new SqlCommand("AjouterDansCommande", this.m_Connection){ CommandType = CommandType.StoredProcedure };
             foreach (KeyValuePair<Produit, uint> produit in p_Commande)
             {
@@ -95,7 +92,7 @@ namespace Concept
             SqlDataReader reader = command.ExecuteReader();
             //Verifier
             reader.Read();
-            int id_menu = (int)reader["id_menu"];
+            int id_menu = Convert.ToInt32(reader["id_menu"]);
             foreach (Produit produit in p_Menu.ListeProduit)
             {
                 command = new SqlCommand("AjouterAuMenu", this.m_Connection)
@@ -115,7 +112,7 @@ namespace Concept
 
         public IList<Commande> GetCommandes()
         {
-            
+
             return null;
         }
 
@@ -129,12 +126,12 @@ namespace Concept
             while (reader.Read())
             {
                 commandes.Add(new Commande(
-                    (int)reader["id_commande"],
-                    this.GetUtilisateur((int)reader["id_utilisateur"]),
-                    STATUT_COMMANDE[(char)reader["id_statut"]],
-                    (string)reader["adresse"],
-                    (DateTime)reader["date_livraison"]));
-                IDictionary<Produit, uint> produits = this.GetProduits((int)reader["id_commande"]);
+                    reader.GetInt32(0),
+                    this.GetUtilisateur(Convert.ToInt32(reader["id_utilisateur"])),
+                    STATUT_COMMANDE[Convert.ToChar(reader["id_statut"])],
+                    Convert.ToString(reader["adresse"]),
+                    Convert.ToDateTime(reader["date_livraison"])));
+                IDictionary<Produit, uint> produits = this.GetProduits(Convert.ToInt32(reader["id_commande"]));
                 foreach (KeyValuePair<Produit, uint> produit in produits)
                 {
                     commandes.Last<Commande>().Ajouter(produit.Key, produit.Value);
@@ -154,11 +151,11 @@ namespace Concept
             List<Commande> commandes = new List<Commande>();
             while (reader.Read()) {
                 commandes.Add(new Commande(
-                    (int)reader["id_commande"], 
-                    this.GetUtilisateur((int)reader["id_utilisateur"]), 
-                    STATUT_COMMANDE[(char)reader["id_statut"]], 
-                    (string)reader["adresse"], 
-                    (DateTime)reader["date_livraison"]));
+                    Convert.ToInt32(reader["id_commande"]),
+                    this.GetUtilisateur(Convert.ToInt32(reader["id_utilisateur"])),
+                    STATUT_COMMANDE[Convert.ToChar(reader["id_statut"])],
+                    Convert.ToString(reader["adresse"]),
+                    Convert.ToDateTime(reader["date_livraison"])));
                 IDictionary<Produit, uint> produits = this.GetProduits((int)reader["id_commande"]);
                 foreach (KeyValuePair<Produit, uint> produit in produits)
                 {
@@ -189,9 +186,9 @@ namespace Concept
                     reader.GetString(1),
                     reader.GetString(2),
                     reader.GetDecimal(3),
-                    reader.GetString(4),
+                    "",//reader.GetString(4),
                     this.CATEGORIE_PRODUIT[Convert.ToChar(reader["id_cat"])]
-                ));
+                    ));
             }
             reader.Close();
             return produits;
@@ -205,14 +202,14 @@ namespace Concept
             while (product_reader.Read())
             {
                 commandes.Add(new Produit(
-                        (int)product_reader["id_produit"],
-                        (string)product_reader["nom"],
-                        (string)product_reader["desc_prod"],
-                        (decimal)product_reader["prix"],
-                        (string)product_reader["path_image"],
-                        this.CATEGORIE_PRODUIT[(char)product_reader["id_cat"]]
-                    ), 
-                    (uint)product_reader["nb"]);
+                        product_reader.GetInt32(0),
+                        product_reader.GetString(1),
+                        product_reader.GetString(2),
+                        product_reader.GetDecimal(3),
+                        product_reader.GetString(4),
+                        this.CATEGORIE_PRODUIT[Convert.ToChar(product_reader["id_cat"])]
+                    ),
+                    (uint)Convert.ToInt32(product_reader["nb"]));
             }
             product_reader.Close();
             return commandes;
@@ -233,10 +230,10 @@ namespace Concept
             while (reader.Read())
             {
                 restaurants.Add(new Restaurant(
-                    (int)reader["id_restaurant"],
-                    (string)reader["adresse"],
-                    (string)reader["telephone"],
-                    (string)reader["path_image"]
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetString(3)
                     ));
                 IList<Produit> produits = new List<Produit>();
                 command = new SqlCommand("GetMenuResto", this.m_Connection) { CommandType = CommandType.StoredProcedure };
@@ -244,7 +241,7 @@ namespace Concept
                 menuGetter = command.ExecuteReader();
                 //Verifier
                 menuGetter.Read();
-                restaurants.Last<Restaurant>().Menu = GetMenu((int)menuGetter["id_menu"]);
+                restaurants.Last<Restaurant>().Menu = GetMenu((menuGetter["id_menu"] as int? ?? default(int)));
             }
             reader.Close();
             return restaurants;
@@ -259,12 +256,12 @@ namespace Concept
             while (reader.Read())
             {
                 menu.Ajouter(new Produit(
-                    (int)reader["id_produit"],
-                    (string)reader["nom"],
-                    (string)reader["desc_prod"],
-                    (decimal)reader["prix"],
-                    (string)reader["path_image"],
-                    CATEGORIE_PRODUIT[(char)reader["id_cat"]]
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetDecimal(3),
+                    reader.GetString(4),
+                    CATEGORIE_PRODUIT[Convert.ToChar(reader["id_cat"])]
                     ));
             }
             reader.Close();
@@ -279,16 +276,16 @@ namespace Concept
             //Verifier
             reader.Read();
             Restaurant restaurant = new Restaurant(
-                (int)reader["id_restaurant"],
-                (string)reader["adresse"],
-                (string)reader["telephone"],
-                (string)reader["path_image"]
+                reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetString(3)
                 );
-            restaurant.Menu = this.GetMenu((int)reader["id_menu"]);
+            restaurant.Menu = this.GetMenu(Convert.ToInt32(reader["id_menu"]));
             reader.Close();
             return restaurant;
         }
-        
+
         public Utilisateur Authentifier(string p_Nom, string p_Password)
         {
             SqlCommand command = new SqlCommand("AuthentifierUser", this.m_Connection) { CommandType = CommandType.StoredProcedure };
@@ -298,21 +295,22 @@ namespace Concept
             //Verifier
             if (reader.Read())
             {
-                var u = new Utilisateur(
-                    (int)reader["id_utlisateur"],
-                    (string)reader["nom"],
-                    (string)reader["password_user"],
-                    TYPE_UTILISATEUR[(char)reader["id_type"]],
-                    (string)reader["adresse"],
-                    (string)reader["email"],
-                    this.GetRestaurant((int)reader["id_restaurant"]),
-                    this.GetCommandes((int)reader["id_utilisateur"])
+                Utilisateur user = new Utilisateur(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    TYPE_UTILISATEUR[Convert.ToChar(reader["id_type"])],
+                    Convert.ToString(reader["adresse"]),
+                    Convert.ToString(reader["email"]),
+                    this.GetRestaurant(Convert.ToInt32(reader["id_restaurant"])),
+                    this.GetCommandes(Convert.ToInt32(reader["id_utilisateur"]))
                     );
                 reader.Close();
-                return u;
+                return user;
             }
             else
             {
+                reader.Close();
                 return null;
             }
         }
@@ -325,34 +323,35 @@ namespace Concept
             //Verifier
             if (reader.Read())
             {
-                var u = new Utilisateur(
-                    (int)reader["id_utlisateur"],
-                    (string)reader["nom"],
-                    (string)reader["password_user"],
-                    TYPE_UTILISATEUR[(char)reader["id_type"]],
-                    (string)reader["adresse"],
-                    (string)reader["email"],
-                    this.GetRestaurant((int)reader["id_restaurant"]),
-                    this.GetCommandes((int)reader["id_utilisateur"])
+                Utilisateur user = new Utilisateur(
+                    reader.GetInt32(0),
+                    (string)reader.GetString(1),
+                    (string)reader.GetString(2),
+                    TYPE_UTILISATEUR[Convert.ToChar(reader["id_type"])],
+                    Convert.ToString(reader["adresse"]),
+                    Convert.ToString(reader["email"]),
+                    this.GetRestaurant(Convert.ToInt32(reader["id_restaurant"])),
+                    this.GetCommandes(Convert.ToInt32(reader["id_utilisateur"]))
                     );
                 reader.Close();
-                return u;
+                return user;
             }
             else
             {
+                reader.Close();
                 return null;
             }
         }
 
-        public IDictionary<char, TypeUtilisateur> GetTypesUtilisateur()
+        private IDictionary<char, TypeUtilisateur> GetTypesUtilisateur()
         {
             SqlCommand command = new SqlCommand("GetTypesUtilisateur", this.m_Connection) { CommandType = CommandType.StoredProcedure };
             SqlDataReader reader = command.ExecuteReader();
             Dictionary<char, TypeUtilisateur> types = new Dictionary<char, TypeUtilisateur>();
             while (reader.Read())
             {
-                types.Add(Convert.ToChar(reader["id_type"]), new TypeUtilisateur(Convert.ToChar(reader["id_type"]), reader.GetString(1)));
-                //types.Add((char)reader["id_type"], new TypeUtilisateur((char)reader["id_type"], (string)reader["desc_type"]));
+                types.Add(Convert.ToChar(reader["id_type"]),
+                    new TypeUtilisateur(Convert.ToChar(reader["id_type"]), reader.GetString(1)));
             }
             reader.Close();
             return types;
@@ -364,15 +363,15 @@ namespace Concept
             return null;
         }
 
-        public IDictionary<char, StatutCommande> GetStatutsCommande()
+        private IDictionary<char, StatutCommande> GetStatutsCommande()
         {
             SqlCommand command = new SqlCommand("GetStatutCommande", this.m_Connection) { CommandType = CommandType.StoredProcedure };
             SqlDataReader reader = command.ExecuteReader();
             Dictionary<char, StatutCommande> statut = new Dictionary<char, StatutCommande>();
             while (reader.Read())
             {
-                statut.Add(Convert.ToChar(reader["id_statut"]), new StatutCommande(Convert.ToChar(reader["id_statut"]), reader.GetString(1)));
-                //statut.Add((char)reader["id_statut"], new StatutCommande((char)reader["id_statut"], reader["desc_statut"].ToString()));
+                statut.Add(Convert.ToChar(reader["id_statut"]),
+                    new StatutCommande(Convert.ToChar(reader["id_statut"]), reader.GetString(1)));
             }
             reader.Close();
             return statut;
@@ -384,15 +383,15 @@ namespace Concept
             return null;
         }
 
-        public IDictionary<char, CategorieProduit> GetCategoriesProduit()
+        private IDictionary<char, CategorieProduit> GetCategoriesProduit()
         {
             SqlCommand command = new SqlCommand("GetCategoriesProduits", this.m_Connection) { CommandType = CommandType.StoredProcedure };
             SqlDataReader reader = command.ExecuteReader();
             Dictionary<char, CategorieProduit> categories = new Dictionary<char, CategorieProduit>();
             while (reader.Read())
             {
-                categories.Add(Convert.ToChar(reader["id_cat"]), new CategorieProduit(Convert.ToChar(reader["id_cat"]), reader.GetString(1)));
-                //categories.Add((char)reader["id_cat"], new CategorieProduit((char)reader["id_cat"], (string)reader["desc_cat"]));
+                categories.Add(Convert.ToChar(reader["id_cat"]),
+                    new CategorieProduit(Convert.ToChar(reader["id_cat"]), reader.GetString(1)));
             }
             reader.Close();
             return categories;
