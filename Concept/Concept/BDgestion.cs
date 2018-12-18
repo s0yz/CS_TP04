@@ -300,8 +300,8 @@ namespace Concept
             {
                 Utilisateur user = new Utilisateur(
                     reader.GetInt32(0),
-                    (string)reader.GetString(1),
-                    (string)reader.GetString(2),
+                    reader.GetString(1),
+                    reader.GetString(2),
                     TYPE_UTILISATEUR[Convert.ToChar(reader["id_type"])],
                     Convert.ToString(reader["adresse"]),
                     Convert.ToString(reader["email"]),
