@@ -21,7 +21,7 @@
             <asp:FileUpload id="FileDialog" runat="server" Width="300px" />
             <br />
             <br />
-            <asp:Image id="im_Resto" runat="server" ImageAlign="Middle" ImageURL="../img/restodefaut.png" Height="200px" Width="200px"/>
+            <asp:Image id="im_Resto" runat="server" ImageAlign="Middle" ImageURL="../img/restodefaut.png" Height="200px" Width="250px"/>
             <br />
             <asp:Button Text="Téléverser" runat="server" OnClick="Upload" CssClass="btn" />
             <br />
