@@ -346,7 +346,7 @@ namespace Concept
             }
         }
 
-        public IDictionary<char, TypeUtilisateur> GetTypesUtilisateur()
+        private IDictionary<char, TypeUtilisateur> GetTypesUtilisateur()
         {
             SqlCommand command = new SqlCommand("GetTypesUtilisateur", this.m_Connection) { CommandType = CommandType.StoredProcedure };
             SqlDataReader reader = command.ExecuteReader();
@@ -366,7 +366,7 @@ namespace Concept
             return null;
         }
 
-        public IDictionary<char, StatutCommande> GetStatutsCommande()
+        private IDictionary<char, StatutCommande> GetStatutsCommande()
         {
             SqlCommand command = new SqlCommand("GetStatutCommande", this.m_Connection) { CommandType = CommandType.StoredProcedure };
             SqlDataReader reader = command.ExecuteReader();
@@ -386,7 +386,7 @@ namespace Concept
             return null;
         }
 
-        public IDictionary<char, CategorieProduit> GetCategoriesProduit()
+        private IDictionary<char, CategorieProduit> GetCategoriesProduit()
         {
             SqlCommand command = new SqlCommand("GetCategoriesProduits", this.m_Connection) { CommandType = CommandType.StoredProcedure };
             SqlDataReader reader = command.ExecuteReader();
