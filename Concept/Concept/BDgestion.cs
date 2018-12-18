@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -9,11 +10,13 @@ namespace Concept
 {
     public class BDGestion
     {
+        public const string pathCed = @"U:\Soyz\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf";
+        public const string pathMax = @"C:\Users\admin\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf";
         public readonly IDictionary<char, StatutCommande> STATUT_COMMANDE;
         public readonly IDictionary<char, CategorieProduit> CATEGORIE_PRODUIT;
         public readonly IDictionary<char, TypeUtilisateur> TYPE_UTILISATEUR;
         //Soyez sur d'avoir une référence a votre MDF local!!!
-        private SqlConnection m_Connection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\admin\Documents\GitHub\CS_TP04\Concept\Concept\App_Data\Concept.mdf;Integrated Security = True");
+        private SqlConnection m_Connection = new SqlConnection($@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename={pathMax};Integrated Security = True");
 
         private BDGestion() {
             m_Connection.Open();
@@ -54,7 +57,7 @@ namespace Concept
             command.Parameters.AddWithValue("@p_Desc", p_Produit.Description);
             command.Parameters.AddWithValue("@p_Prix", p_Produit.Prix);
             command.Parameters.AddWithValue("@p_Path", "");
-            command.Parameters.AddWithValue("@p_Categorie", p_Produit.Categorie);
+            command.Parameters.AddWithValue("@p_Categorie", p_Produit.Categorie.Id);
             command.ExecuteNonQuery();
         }
 
@@ -112,7 +115,7 @@ namespace Concept
 
         public IList<Commande> GetCommandes()
         {
-            
+
             return null;
         }
 
@@ -151,10 +154,10 @@ namespace Concept
             List<Commande> commandes = new List<Commande>();
             while (reader.Read()) {
                 commandes.Add(new Commande(
-                    Convert.ToInt32(reader["id_commande"]), 
-                    this.GetUtilisateur(Convert.ToInt32(reader["id_utilisateur"])), 
-                    STATUT_COMMANDE[Convert.ToChar(reader["id_statut"])], 
-                    Convert.ToString(reader["adresse"]), 
+                    Convert.ToInt32(reader["id_commande"]),
+                    this.GetUtilisateur(Convert.ToInt32(reader["id_utilisateur"])),
+                    STATUT_COMMANDE[Convert.ToChar(reader["id_statut"])],
+                    Convert.ToString(reader["adresse"]),
                     Convert.ToDateTime(reader["date_livraison"])));
                 IDictionary<Produit, uint> produits = this.GetProduits((int)reader["id_commande"]);
                 foreach (KeyValuePair<Produit, uint> produit in produits)
@@ -173,6 +176,14 @@ namespace Concept
             SqlDataReader reader = command.ExecuteReader();
             List<Produit> produits = new List<Produit>();
             while (reader.Read()) {
+                //produits.Add(new Produit(
+                //    (int)reader["id_produit"],
+                //    (string)reader["nom"],
+                //    (string)reader["desc_prod"],
+                //    (decimal)reader["prix"],
+                //    (string)reader["path_image"],
+                //    this.CATEGORIE_PRODUIT[(char)reader["id_cat"]]
+                //));
                 produits.Add(new Produit(
                     reader.GetInt32(0),
                     reader.GetString(1),
@@ -200,7 +211,7 @@ namespace Concept
                         product_reader.GetDecimal(3),
                         product_reader.GetString(4),
                         this.CATEGORIE_PRODUIT[Convert.ToChar(product_reader["id_cat"])]
-                    ), 
+                    ),
                     (uint)Convert.ToInt32(product_reader["nb"]));
             }
             product_reader.Close();
@@ -277,7 +288,7 @@ namespace Concept
             reader.Close();
             return restaurant;
         }
-        
+
         public Utilisateur Authentifier(string p_Nom, string p_Password)
         {
             SqlCommand command = new SqlCommand("AuthentifierUser", this.m_Connection) { CommandType = CommandType.StoredProcedure };
@@ -342,7 +353,7 @@ namespace Concept
             Dictionary<char, TypeUtilisateur> types = new Dictionary<char, TypeUtilisateur>();
             while (reader.Read())
             {
-                types.Add(Convert.ToChar(reader["id_type"]), 
+                types.Add(Convert.ToChar(reader["id_type"]),
                     new TypeUtilisateur(Convert.ToChar(reader["id_type"]), reader.GetString(1)));
             }
             reader.Close();
@@ -362,7 +373,7 @@ namespace Concept
             Dictionary<char, StatutCommande> statut = new Dictionary<char, StatutCommande>();
             while (reader.Read())
             {
-                statut.Add(Convert.ToChar(reader["id_statut"]), 
+                statut.Add(Convert.ToChar(reader["id_statut"]),
                     new StatutCommande(Convert.ToChar(reader["id_statut"]), reader.GetString(1)));
             }
             reader.Close();
@@ -382,17 +393,16 @@ namespace Concept
             Dictionary<char, CategorieProduit> categories = new Dictionary<char, CategorieProduit>();
             while (reader.Read())
             {
-                categories.Add(Convert.ToChar(reader["id_cat"]), 
+                categories.Add(Convert.ToChar(reader["id_cat"]),
                     new CategorieProduit(Convert.ToChar(reader["id_cat"]), reader.GetString(1)));
             }
             reader.Close();
             return categories;
         }
 
-        public CategorieProduit GetCategorieProduit(int p_Id)
+        public CategorieProduit GetCategorieProduit(char p_Id)
         {
-            // TODO
-            return null;
+            return GetCategoriesProduit()[p_Id];
         }
 
         public void Supprimer(Utilisateur p_Utilisateur)

@@ -11,10 +11,7 @@ namespace Concept
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["image"] != null)
-            {
-                im_Resto.ImageUrl = Session["image"].ToString();
-            }
+
         }
 
         protected void Upload(object sender, EventArgs e)
@@ -23,15 +20,17 @@ namespace Concept
             {
                 String savePath = String.Format(@"{0}/img/restaurant/{1}", Request.PhysicalApplicationPath, FileDialog.FileName);
                 FileDialog.SaveAs(savePath);
-                Session.Add("image", savePath);
                 im_Resto.ImageUrl = String.Format("../img/restaurant/{0}", FileDialog.FileName);
             }
         }
 
         protected void Finish(object sender, EventArgs e)
         {
-            Restaurant nouveauResto = new Restaurant(tb_adresse.Text, tb_telephone.Text, im_Resto.ImageUrl);
-            nouveauResto.Commit();
+            if (((Button)sender).ID == "btn_Finish") {
+                Restaurant nouveauResto = new Restaurant(tb_adresse.Text, tb_telephone.Text, im_Resto.ImageUrl);
+                nouveauResto.Commit();
+            }
+            Response.Redirect("Acceuil2.aspx");
         }
     }
 }
