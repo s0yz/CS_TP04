@@ -10,7 +10,7 @@ namespace Concept
 {
     public partial class SuiviDesCommandes : System.Web.UI.Page
     {
-        private List<Commande> m_ListCommande;
+       private List<Commande> m_ListCommande;
         protected void Page_Load(object sender, EventArgs e)
         {
             Utilisateur user = (Utilisateur)this.Session["Utilisateur"];

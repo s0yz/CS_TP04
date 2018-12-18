@@ -13,5 +13,29 @@ namespace Concept
         {
 
         }
+
+        protected void connection_click(object sender, EventArgs e)
+        {
+            if (this.UtilisateurIdentif())
+            {
+               this.Response.Redirect("Acceuil.aspx");
+            }
+        }
+
+        private bool UtilisateurIdentif()
+        {
+            bool trouve = false;
+            if (BDGestion.Instance.Authentifier(this.tb_email.Text,this.tb_motDePasse.Text) != null)
+            {
+                this.Session["Utilisateur"] = BDGestion.Instance.Authentifier(this.tb_email.Text, this.tb_motDePasse.Text);
+                trouve = true;
+            } 
+            return trouve;
+        }
+
+        protected void création_click(object sender, EventArgs e)
+        {
+            // vide
+        }
     }
 }

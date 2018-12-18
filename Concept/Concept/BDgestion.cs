@@ -16,7 +16,7 @@ namespace Concept
         public readonly IDictionary<char, CategorieProduit> CATEGORIE_PRODUIT;
         public readonly IDictionary<char, TypeUtilisateur> TYPE_UTILISATEUR;
         //Soyez sur d'avoir une référence a votre MDF local!!!
-        private SqlConnection m_Connection = new SqlConnection($@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename={pathMax};Integrated Security = True");
+        private SqlConnection m_Connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\admin\Desktop\CS_TP04\Concept\Concept\App_Data\Concept.mdf;Integrated Security=True;");
 
         private BDGestion() {
             m_Connection.Open();
