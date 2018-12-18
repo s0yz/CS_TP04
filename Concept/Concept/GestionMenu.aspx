@@ -1,12 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="GestionMenu.aspx.cs" Inherits="Concept.GestionMenu" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div>
     <div class="row">
         <div class="col-1-de-3">
             <asp:Label ID="lbl_restaurant" runat="server" Text="Restaurant :"></asp:Label>
-            <asp:DropDownList ID="ddl_restaurant" runat="server">
-                <asp:ListItem>Lévis</asp:ListItem>
-                <asp:ListItem>Québec</asp:ListItem>
+            <asp:DropDownList ID="ddl_restaurant" runat="server" DataSourceID="SqlDS_Resto" DataTextField="adresse" DataValueField="id_restaurant">
             </asp:DropDownList>
+            <asp:SqlDataSource ID="SqlDS_Resto" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [tbl_restaurant] WHERE ([id_menu] IS NULL)"></asp:SqlDataSource>
             <asp:Button ID="btn_enregistrer" runat="server" Text="Enregistrer" OnClick="btn_enregistrer_Click" />
             <asp:Button ID="btn_annuler" runat="server" Text="Sauvegarder" OnClick="btn_annuler_Click" />
         </div>
@@ -20,7 +20,9 @@
             <asp:Button ID="btn_retirer" runat="server" Text="Retirer" OnClick="btn_retirer_Click" />
         </div>
         <div class="col-1-de-3">
-            <asp:GridView ID="view_Produits" runat="server" CssClass="grid_view" ShowHeaderWhenEmpty="True"></asp:GridView>
+            <asp:GridView ID="view_Produits" runat="server" CssClass="grid_view" ShowHeaderWhenEmpty="True">
+            </asp:GridView>
         </div>
+    </div>
     </div>
 </asp:Content>

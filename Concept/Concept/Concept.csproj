@@ -113,10 +113,6 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Acceuil2.aspx" />
-    <Content Include="App_Data\Concept.mdf" />
-    <Content Include="App_Data\Concept_log.ldf">
-      <DependentUpon>Concept.mdf</DependentUpon>
-    </Content>
     <Content Include="Authentification.aspx" />
     <Content Include="Commander.aspx" />
     <Content Include="Contact.aspx" />
@@ -236,6 +232,7 @@
     </Compile>
     <Compile Include="Menu.cs" />
     <Compile Include="Produit.cs" />
+    <Compile Include="ProdView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Restaurant.cs" />
     <Compile Include="Site.Master.cs">
@@ -271,6 +268,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>

@@ -16,5 +16,7 @@ namespace Concept
         public char Id { get; private set; }
 
         public string Categorie { get; private set; }
+
+        public override string ToString() => Categorie;
     }
 }
