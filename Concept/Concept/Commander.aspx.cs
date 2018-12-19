@@ -142,7 +142,7 @@ namespace Concept
         {
 
             // BDGestion.Instance.ajouter(this.commande,((Utilisateur)this.Session["Utilisateur"]).Id,((Restaurant)this.Session["Restaurent"]).Id);
-            this.Response.Redirect("Acceuil2.aspx");
+            this.Response.Redirect("Default.aspx");
 
         }
     }
