@@ -30,17 +30,20 @@ namespace Concept
             command.Parameters.AddWithValue("@p_Id_Utilisateur", p_Id_User);
             command.Parameters.AddWithValue("@p_Id_Restaurant", p_Id_Resto);
             command.Parameters.AddWithValue("@p_Adresse", p_Commande.AdresseLivraison);
+            command.Parameters.AddWithValue("@p_Date_Livraison", p_Commande.Date);
             SqlDataReader receiver = command.ExecuteReader();
             //Verify
-            receiver.Read();
-            int id_Commande = receiver.GetInt32(0);
-            command = new SqlCommand("AjouterDansCommande", this.m_Connection){ CommandType = CommandType.StoredProcedure };
-            foreach (KeyValuePair<Produit, uint> produit in p_Commande)
+            if (receiver.Read())
             {
-                command.Parameters.AddWithValue("@p_Id_Commande", id_Commande);
-                command.Parameters.AddWithValue("@p_Id_Produit", produit.Key.Id);
-                command.Parameters.AddWithValue("@p_Nb", produit.Value);
-                command.ExecuteNonQuery();
+                int id_Commande = receiver.GetInt32(0);
+                foreach (KeyValuePair<Produit, uint> produit in p_Commande)
+                {
+                    command = new SqlCommand("AjouterDansCommande", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+                    command.Parameters.AddWithValue("@p_Id_Commande", id_Commande);
+                    command.Parameters.AddWithValue("@p_Id_Produit", produit.Key.Id);
+                    command.Parameters.AddWithValue("@p_Nb", (int)produit.Value);
+                    command.ExecuteNonQuery();
+                }
             }
             receiver.Close();
         }
@@ -75,7 +78,7 @@ namespace Concept
             command.Parameters.AddWithValue("@p_password", p_Utilisateur.MotDePasse);
             command.Parameters.AddWithValue("@p_adresse", p_Utilisateur.Adresse);
             command.Parameters.AddWithValue("@p_email", p_Utilisateur.Email);
-            command.Parameters.AddWithValue("@p_type", p_Utilisateur.Type);
+            command.Parameters.AddWithValue("@p_type", p_Utilisateur.Type.Id);
             command.Parameters.AddWithValue("@p_restaurant", p_Utilisateur.Restaurant == null ? 0 : p_Utilisateur.Restaurant.Id);
             command.ExecuteNonQuery();
         }
@@ -91,15 +94,18 @@ namespace Concept
             command.Parameters.AddWithValue("@p_Id_Resto", p_Id_Resto);
             SqlDataReader reader = command.ExecuteReader();
             //Verifier
-            reader.Read();
-            int id_menu = Convert.ToInt32(reader["id_menu"]);
-            foreach (Produit produit in p_Menu.ListeProduit)
+            if (reader.Read())
             {
-                command = new SqlCommand("AjouterAuMenu", this.m_Connection)
-                { CommandType = CommandType.StoredProcedure };
-                command.Parameters.AddWithValue("@p_Id_Menu", id_menu);
-                command.Parameters.AddWithValue("@p_Id_Produit", produit.Id);
-                command.ExecuteNonQuery();
+
+                int id_menu = Convert.ToInt32(reader["id_menu"]);
+                foreach (Produit produit in p_Menu.ListeProduit)
+                {
+                  command = new SqlCommand("AjouterAuMenu", this.m_Connection)
+                  { CommandType = CommandType.StoredProcedure };
+                  command.Parameters.AddWithValue("@p_Id_Menu", id_menu);
+                  command.Parameters.AddWithValue("@p_Id_Produit", produit.Id);
+                  command.ExecuteNonQuery();
+                }
             }
             reader.Close();
         }
@@ -177,6 +183,7 @@ namespace Concept
         public IDictionary<Produit, uint> GetProduits(int p_Id_Commande)
         {
             SqlCommand command = new SqlCommand("GetProduitsDeCommande", this.m_Connection) { CommandType = CommandType.StoredProcedure };
+            command.Parameters.AddWithValue("@p_Id_Commande", p_Id_Commande);
             SqlDataReader product_reader = command.ExecuteReader();
             Dictionary<Produit, uint> commandes = new Dictionary<Produit, uint>();
             while (product_reader.Read())
@@ -207,25 +214,27 @@ namespace Concept
                     reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
-                    reader.GetString(3)
+                    reader.GetString(4)
                     ));
                 IList<Produit> produits = new List<Produit>();
                 command = new SqlCommand("GetMenuResto", this.m_Connection) { CommandType = CommandType.StoredProcedure };
                 command.Parameters.AddWithValue("@p_Id_Resto", reader["id_restaurant"]);
                 menuGetter = command.ExecuteReader();
                 //Verifier
-                menuGetter.Read();
-                restaurants.Last<Restaurant>().Menu = GetMenu((menuGetter["id_menu"] as int? ?? default(int)));
+                if (menuGetter.Read())
+                {
+                    restaurants.Last<Restaurant>().Menu = GetMenu((menuGetter["id_menu"] as int? ?? default(int)));
+                }
             }
             reader.Close();
             return restaurants;
         }
 
-        public Menu GetMenu(int p_Id)
+        public Menu GetMenu(int? p_Id)
         {
             Menu menu = new Menu();
             SqlCommand command = new SqlCommand("GetMenu", this.m_Connection) { CommandType = CommandType.StoredProcedure };
-            command.Parameters.AddWithValue("@p_Id_Menu", p_Id);
+            command.Parameters.AddWithValue("@p_Id_Menu", p_Id == null ? 0 : p_Id);
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -248,16 +257,22 @@ namespace Concept
             command.Parameters.AddWithValue("@p_Id_Restaurant", p_Id);
             SqlDataReader reader = command.ExecuteReader();
             //Verifier
-            reader.Read();
-            Restaurant restaurant = new Restaurant(
-                reader.GetInt32(0),
+            if (reader.Read())
+            {
+                Restaurant restaurant = new Restaurant(
+                    reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
-                    reader.GetString(3)
-                );
-            restaurant.Menu = this.GetMenu(Convert.ToInt32(reader["id_menu"]));
-            reader.Close();
-            return restaurant;
+                    reader.GetString(4)
+                    );
+                restaurant.Menu = this.GetMenu(reader["id_menu"] as int? ?? default(int));
+                reader.Close();
+                return restaurant;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public Utilisateur Authentifier(string p_Nom, string p_Password)
@@ -276,7 +291,7 @@ namespace Concept
                     TYPE_UTILISATEUR[Convert.ToChar(reader["id_type"])],
                     reader["adresse"] == DBNull.Value ? "" : Convert.ToString(reader["adresse"]),
                     Convert.ToString(reader["email"]),
-                    reader["id_restaurant"] == DBNull.Value ? null : this.GetRestaurant(Convert.ToInt32(reader["id_restaurant"])),
+                    this.GetRestaurant(Convert.ToInt32(reader["id_restaurant"] as int? ?? default(int))),
                     this.GetCommandes(Convert.ToInt32(reader["id_utilisateur"]))
                     );
                 reader.Close();
@@ -304,7 +319,7 @@ namespace Concept
                     TYPE_UTILISATEUR[Convert.ToChar(reader["id_type"])],
                     Convert.ToString(reader["adresse"]),
                     Convert.ToString(reader["email"]),
-                    this.GetRestaurant(Convert.ToInt32(reader["id_restaurant"])),
+                    this.GetRestaurant(Convert.ToInt32(reader["id_restaurant"] as int? ?? default(int))),
                     this.GetCommandes(Convert.ToInt32(reader["id_utilisateur"]))
                     );
                 reader.Close();
