@@ -112,7 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="Auteur.txt" />
     <Content Include="Default.aspx" />
     <Content Include="Authentification.aspx" />
     <Content Include="Commander.aspx" />

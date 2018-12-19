@@ -22,7 +22,7 @@ namespace Concept
             }
             if (!this.IsPostBack)
             {
-                this.Session["commande"] = new Commande((Utilisateur)this.Session["Utilisateur"], "jmencaliss", DateTime.Now);
+                this.Session["commande"] = new Commande((Utilisateur)this.Session["Utilisateur"], "", DateTime.Now);
                 this.commande = (Commande)this.Session["commande"];
                 catProd = 'R';
                 this.Session["cate"] = 'R';
