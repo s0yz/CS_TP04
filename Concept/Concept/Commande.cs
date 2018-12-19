@@ -17,23 +17,13 @@ namespace Concept
             AdresseLivraison = p_Adresse;
             Date = p_Date;
         }
-
-        public Commande(Utilisateur p_client) :
-            this(p_client, BDGestion.Instance.GetStatutCommande(0), p_client.Adresse)
+    
+        public Commande(Utilisateur p_Client, string p_Adresse, DateTime p_Date)
         {
-        }
 
-        public Commande(Utilisateur p_client, StatutCommande p_statut) :
-            this(p_client, p_statut, p_client.Adresse)
-        {
-        }
-
-        public Commande(Utilisateur p_client, StatutCommande p_statut, string p_adresse)
-        {
-            this.Client = p_client;
-            this.AdresseLivraison = p_adresse;
-            this.Date = DateTime.Now;
-            this.Statut = p_statut;
+            Client = p_Client;
+            AdresseLivraison = p_Adresse;
+            Date = p_Date;
         }
 
         public int Identifiant { get; private set; }
@@ -45,6 +35,16 @@ namespace Concept
         public DateTime Date { get; private set; }
 
         public StatutCommande Statut { get; private set; }
+
+        public Dictionary<Produit, uint> Produits { get
+            {
+                return this.m_Produits;
+            }
+            private set
+            {
+                this.m_Produits = value;
+            }
+        }
 
         public void Ajouter(Produit p_produit, uint p_quantite)
         {
@@ -65,6 +65,7 @@ namespace Concept
                 }
             }
         }
+
         
         public decimal CalculerTotal() => this.Sum(p => p.Key.Prix * p.Value);
 

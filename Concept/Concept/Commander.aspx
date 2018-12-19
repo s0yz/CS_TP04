@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Commander.aspx.cs" Inherits="Concept.Commander" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script runat="server">    
+    void increment(object sender, ImageClickEventArgs e) {
+       
+    }
+</script>
     <section class="row menu-commande-container">
         <div class="col-1-de-4">
             <ul class="menu-list">
@@ -13,8 +18,10 @@
          <%=
            this.construireHtml()
              %>
-
-    
          </div>
+        <div>
+            <asp:Button Text="Accepter" ID="btn_accepter" OnClick="Accept_click" cssclass="btn" runat="server" />
+        </div>
 </section>
 </asp:Content>
+
