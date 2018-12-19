@@ -141,7 +141,7 @@ namespace Concept
         protected void Accept_click(object sender, EventArgs e)
         {
 
-            // BDGestion.Instance.ajouter(this.commande,((Utilisateur)this.Session["Utilisateur"]).Id,((Restaurant)this.Session["Restaurent"]).Id);
+            BDGestion.Instance.ajouter(this.commande,((Utilisateur)this.Session["Utilisateur"]).Id,1);
             this.Response.Redirect("Default.aspx");
 
         }
