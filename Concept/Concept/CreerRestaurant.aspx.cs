@@ -11,7 +11,7 @@ namespace Concept
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (((Utilisateur)Session["Utilisateur"]).Type.Id != 'A')
+            if (Session["Utilisateur"] == null || ((Utilisateur)Session["Utilisateur"]).Type.Id != 'A')
             {
                 Response.Redirect("Acceuil2.aspx");
             }
