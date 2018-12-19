@@ -18,9 +18,10 @@
          <%=
            this.construireHtml()
              %>
-
-    
          </div>
+        <div>
+            <asp:Button Text="Accepter" ID="btn_accepter" OnClick="Accept_click" cssclass="btn" runat="server" />
+        </div>
 </section>
 </asp:Content>
 
