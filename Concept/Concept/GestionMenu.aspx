@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="GestionMenu.aspx.cs" Inherits="Concept.GestionMenu" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:PlaceHolder ID="PH_CreationMenu" runat="server">
     <div class="liens-principaux">
         <div class="row">
             <div class="col-1-de-3">
@@ -32,4 +32,8 @@
             </div>
         </div>
     </div>
+    </asp:PlaceHolder>
+    <asp:PlaceHolder ID="PH_Message" runat="server" Visible="False">
+    <p>Touts les restaurants ont déjà un menu ou aucun restaurant n'existe. Veuillez <a href="CreerRestaurant.aspx">ajouter un restaurant</a> ou choisir l'option <a href=""> modifier un menu</a>.</p>
+    </asp:PlaceHolder>
 </asp:Content>

@@ -11,7 +11,11 @@ namespace Concept
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Utilisateur u = (Utilisateur) this.Session["Utilisateur"];
+            if (u != null)
+            {
+                this.a_connecter.InnerText = u.Nom;
+            }
         }
     }
 }

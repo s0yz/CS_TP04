@@ -9,17 +9,18 @@ namespace Concept
 {
     public partial class GestionMenu : System.Web.UI.Page
     {
-
-        //private static List<Produit> m_Produits;
-
         private static Menu m_Menu;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
             {
-                //m_Produits = new List<Produit>();
                 m_Menu = new Menu();
+                if (this.ddl_restaurant.Items.Count < 1)
+                {                    
+                    this.PH_CreationMenu.Visible = false;
+                    this.PH_Message.Visible = true;
+                }
             }
             this.udapteMenu();
         }
