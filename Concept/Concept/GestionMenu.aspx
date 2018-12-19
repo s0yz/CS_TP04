@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-1-de-3">
                 <asp:Label ID="lbl_restaurant" runat="server" Text="Restaurant :"></asp:Label>
-                <asp:DropDownList ID="ddl_restaurant" runat="server" DataSourceID="SqlDS_Resto" DataTextField="adresse" DataValueField="id_restaurant">
+                <asp:DropDownList ID="ddl_restaurant" runat="server" DataSourceID="SqlDS_Resto" DataTextField="adresse" DataValueField="id_restaurant" OnDataBound="ddl_restaurant_DataBound">
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="SqlDS_Resto" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [adresse], [id_restaurant] FROM [tbl_restaurant]"></asp:SqlDataSource>
                 <asp:Button ID="btn_enregistrer" runat="server" Text="Enregistrer" OnClick="btn_enregistrer_Click" />

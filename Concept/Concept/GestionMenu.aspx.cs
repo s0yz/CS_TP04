@@ -15,12 +15,7 @@ namespace Concept
         {            
             if (!this.IsPostBack)
             {
-                m_Menu = new Menu();
-                if (this.ddl_restaurant.Items.Count < 1)
-                {
-                    this.PH_CreationMenu.Visible = false;
-                    this.PH_Message.Visible = true;
-                }
+                m_Menu = new Menu();                
             }
             this.udapteMenu();
         }
@@ -60,6 +55,15 @@ namespace Concept
             this.view_Menu.DataBind();
             this.view_Produits.DataSource = BDGestion.Instance.GetProduits().Where(p => !m_Menu.ListeProduit.Contains(p)).Select(p => new ProdView(p));
             this.view_Produits.DataBind();
-        }               
+        }
+
+        protected void ddl_restaurant_DataBound(object sender, EventArgs e)
+        {
+            if (this.ddl_restaurant.Items.Count < 1)
+            {
+                this.PH_CreationMenu.Visible = false;
+                this.PH_Message.Visible = true;
+            }
+        }
     }
 }
