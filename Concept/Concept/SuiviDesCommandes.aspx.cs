@@ -22,13 +22,13 @@ namespace Concept
 
             if (this.Request.Form["commandeA"] != null)
             {
-                int cmd = Convert.ToInt32(this.Request.Form["commandeA"].ToString().Last<char>().ToString());
+                int cmd = Convert.ToInt32(this.Request.Form["commandeA"].ToString().Remove(0, 9));
                 BDGestion.Instance.SetStatutCommande(cmd, 'A');
                 Page.Response.Redirect(Page.Request.RawUrl);
             }
             else if (this.Request.Form["commandeR"] != null)
             {
-                int cmd = Convert.ToInt32(this.Request.Form["commandeR"].ToString().Last<char>().ToString());
+                int cmd = Convert.ToInt32(this.Request.Form["commandeR"].ToString().Remove(0, 8));
                 BDGestion.Instance.SetStatutCommande(cmd, 'X');
                 Page.Response.Redirect(Page.Request.RawUrl);
             }

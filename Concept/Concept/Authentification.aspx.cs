@@ -21,6 +21,10 @@ namespace Concept
                 Utilisateur u = (Utilisateur)this.Session["Utilisateur"];
                 if (u.Type.Id == 'A')
                     this.Response.Redirect("Gestion.aspx");
+                else if (u.Type.Id == 'G')
+                {
+                    this.Response.Redirect("SuiviDesCommandes.aspx");
+                }
                 else
                     this.Response.Redirect("Default.aspx");
             }
