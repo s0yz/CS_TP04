@@ -24,6 +24,9 @@ namespace Concept
         public decimal Prix { get; private set; }
 
         [DisplayName("Categorie")]
-        public string Categorie  => m_Categorie.Categorie;
+        public string Categorie
+        {
+            get => m_Categorie.Categorie;
+        }
     }
 }

@@ -13,7 +13,8 @@ namespace Concept
         public readonly IDictionary<char, StatutCommande> STATUT_COMMANDE;
         public readonly IDictionary<char, CategorieProduit> CATEGORIE_PRODUIT;
         public readonly IDictionary<char, TypeUtilisateur> TYPE_UTILISATEUR;
-        private SqlConnection m_Connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Concept.mdf;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True");
+        //Soyez sur d'avoir une référence a votre MDF local!!!
+        private SqlConnection m_Connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Concept.mdf;Integrated Security=True;Connect Timeout=30");
         private BDGestion() {
             m_Connection.Open();
             this.STATUT_COMMANDE = this.GetStatutsCommande();
@@ -88,7 +89,6 @@ namespace Concept
             command.ExecuteNonQuery();
             command = new SqlCommand("GetMenuResto", this.m_Connection)
             { CommandType = CommandType.StoredProcedure };
-            command.Parameters.AddWithValue("@p_Id_Resto", p_Id_Resto);
             SqlDataReader reader = command.ExecuteReader();
             //Verifier
             reader.Read();
@@ -98,7 +98,7 @@ namespace Concept
                 command = new SqlCommand("AjouterAuMenu", this.m_Connection)
                 { CommandType = CommandType.StoredProcedure };
                 command.Parameters.AddWithValue("@p_Id_Menu", id_menu);
-                command.Parameters.AddWithValue("@p_Id_Produit", produit.Id);
+                command.Parameters.AddWithValue("@p_Id_Menu", produit.Id);
                 command.ExecuteNonQuery();
             }
             reader.Close();

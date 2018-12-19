@@ -10,55 +10,52 @@ namespace Concept
     public partial class GestionMenu : System.Web.UI.Page
     {
 
-        //private static List<Produit> m_Produits;
-
-        private static Menu m_Menu;
+        private static IList<Produit> m_Produits;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
             {
-                //m_Produits = new List<Produit>();
-                m_Menu = new Menu();
+                m_Produits = new List<Produit>();
+                BDGestion.Instance.ajouter(new Produit("Boisson fontaine", "", 1m, "", BDGestion.Instance.GetCategorieProduit('B')));
+                BDGestion.Instance.ajouter(new Produit("Pepsi", "Bouteille", 1.25m, "", BDGestion.Instance.GetCategorieProduit('B')));
+                BDGestion.Instance.ajouter(new Produit("Mountain Dew", "Bouteille", 1.25m, "", BDGestion.Instance.GetCategorieProduit('B')));
+                BDGestion.Instance.ajouter(new Produit("Repas poitrine", "", 1.25m, "", BDGestion.Instance.GetCategorieProduit('R')));
+                BDGestion.Instance.ajouter(new Produit("Repas cuisse", "", 1.25m, "", BDGestion.Instance.GetCategorieProduit('R')));
+                BDGestion.Instance.ajouter(new Produit("Poutine poulet", "", 1.25m, "", BDGestion.Instance.GetCategorieProduit('R')));
             }
-            this.udapteMenu();
+            this.view_Menu.DataSource = m_Produits.Select(p => new ProdView(p));
+            this.view_Menu.DataBind();
+            this.view_Produits.DataSource = BDGestion.Instance.GetProduits().Select(p => new ProdView(p));
+            this.view_Produits.DataBind();
         }
 
         protected void btn_ajouter_Click(object sender, EventArgs e)
         {
-            var nom = this.view_Produits.SelectedRow.Cells[1].Text;
-            var prod = BDGestion.Instance.GetProduits().SingleOrDefault(p => p.Nom.Equals(nom));
-            if (prod != null) m_Menu.Ajouter(prod);
+            m_Produits.Add(new Produit("allo", "bonsoir", 50.0m, "", new CategorieProduit('b', "Boisson")));
             this.udapteMenu();
         }
 
         protected void btn_retirer_Click(object sender, EventArgs e)
         {
-            var i = this.view_Menu.SelectedIndex;
-            if (m_Menu.ListeProduit.Count > 0 && i > -1)
-            {
-                m_Menu.ListeProduit.RemoveAt(i);
-                this.udapteMenu();
-            }
+            m_Produits.RemoveAt(m_Produits.Count - 1);
+            this.udapteMenu();
         }
 
         protected void btn_enregistrer_Click(object sender, EventArgs e)
         {
-            var i = int.Parse(this.ddl_restaurant.SelectedValue);
-            BDGestion.Instance.ajouter(m_Menu, i);
+
         }
 
         protected void btn_annuler_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Default.aspx");
+
         }
 
         private void udapteMenu()
         {
-            this.view_Menu.DataSource = m_Menu.ListeProduit.Select(p => new ProdView(p));
+            this.view_Menu.DataSource = m_Produits.Select(p => new ProdView(p));
             this.view_Menu.DataBind();
-            this.view_Produits.DataSource = BDGestion.Instance.GetProduits().Where(p => !m_Menu.ListeProduit.Contains(p)).Select(p => new ProdView(p));
-            this.view_Produits.DataBind();
         }               
     }
 }
