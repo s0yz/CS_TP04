@@ -14,7 +14,7 @@ namespace Concept
 
             if (Session["Utilisateur"] == null || ((Utilisateur)Session["Utilisateur"]).Type.Id != 'A')
             {
-                Response.Redirect("Acceuil2.aspx");
+                Response.Redirect("Default.aspx");
             }
 
         }
