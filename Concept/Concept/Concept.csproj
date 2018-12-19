@@ -115,7 +115,6 @@
     <Content Include="Default.aspx" />
     <Content Include="Authentification.aspx" />
     <Content Include="Commander.aspx" />
-    <Content Include="Contact.aspx" />
     <Content Include="CreerCompte.aspx" />
     <Content Include="CreerRestaurant.aspx" />
     <Content Include="favicon.ico" />
@@ -200,13 +199,6 @@
     </Compile>
     <Compile Include="Commander.aspx.designer.cs">
       <DependentUpon>Commander.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="CreerCompte.aspx.cs">
       <DependentUpon>CreerCompte.aspx</DependentUpon>
