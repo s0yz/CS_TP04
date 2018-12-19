@@ -11,10 +11,6 @@ namespace Concept
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!admin())
-            {
-                this.Response.Redirect("Default.aspx");
-            }
         }
 
         protected void click_accepte(object sender, EventArgs e)
@@ -44,10 +40,9 @@ namespace Concept
                 this.ddl_Restaurant.SelectedValue != null;
         }
 
-        private bool admin()
+        protected void Annuler(object sender, EventArgs e)
         {
-
-            return true;
+            Response.Redirect("Gestion.aspx");
         }
     }
 }

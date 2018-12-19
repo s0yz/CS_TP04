@@ -120,6 +120,7 @@
     <Content Include="CreerRestaurant.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Gestion.aspx" />
     <Content Include="GestionMenu.aspx" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -220,6 +221,13 @@
     </Compile>
     <Compile Include="CreerRestaurant.aspx.designer.cs">
       <DependentUpon>CreerRestaurant.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion.aspx.cs">
+      <DependentUpon>Gestion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Gestion.aspx.designer.cs">
+      <DependentUpon>Gestion.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionMenu.aspx.cs">
       <DependentUpon>GestionMenu.aspx</DependentUpon>

@@ -12,12 +12,12 @@ namespace Concept
         private static Menu m_Menu;
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {            
             if (!this.IsPostBack)
             {
                 m_Menu = new Menu();
                 if (this.ddl_restaurant.Items.Count < 1)
-                {                    
+                {
                     this.PH_CreationMenu.Visible = false;
                     this.PH_Message.Visible = true;
                 }
@@ -51,7 +51,7 @@ namespace Concept
 
         protected void btn_annuler_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Default.aspx");
+            Response.Redirect("Gestion.aspx");
         }
 
         private void udapteMenu()
