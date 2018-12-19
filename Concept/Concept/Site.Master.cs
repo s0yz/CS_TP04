@@ -24,6 +24,7 @@ namespace Concept
             if (u != null)
             {
                 this.a_connecter.InnerText = u.Nom;
+                this.a_connecter.HRef = "#";
             }            
         }
     }
