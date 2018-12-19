@@ -34,5 +34,7 @@ namespace Concept
         public string Image { get; private set; }
 
         public CategorieProduit Categorie{ get; private set; }
+
+        public override bool Equals(object obj) => this == obj || obj is Produit p && p.Id == this.Id;
     }
 }
