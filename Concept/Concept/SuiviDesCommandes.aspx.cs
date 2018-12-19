@@ -10,26 +10,28 @@ namespace Concept
 {
     public partial class SuiviDesCommandes : System.Web.UI.Page
     {
-       private List<Commande> m_ListCommande;
+        private IList<Commande> m_ListCommande;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Utilisateur"] == null || ((Utilisateur)Session["Utilisateur"]).Type.Id != 'G')
+            {
+                Response.Redirect("Default.aspx");
+            }
             Utilisateur user = (Utilisateur)this.Session["Utilisateur"];
-            this.m_ListCommande = new List<Commande>();
+            this.m_ListCommande = BDGestion.Instance.GetCommandesParStatut(user.Restaurant.Id, 'P');
 
             if (this.Request.Form["commandeA"] != null)
             {
-                int cmd = Convert.ToInt32(this.Request.Form["commandeA"]);
+                int cmd = Convert.ToInt32(this.Request.Form["commandeA"].ToString().Last<char>().ToString());
                 BDGestion.Instance.SetStatutCommande(cmd, 'A');
-                this.Request.Form["commandeA"] = null;
+                Page.Response.Redirect(Page.Request.RawUrl);
             }
             else if (this.Request.Form["commandeR"] != null)
             {
-                int cmd = Convert.ToInt32(this.Request.Form["commandeR"]);
-                BDGestion.Instance.SetStatutCommande(cmd, 'R');
-                this.Request.Form["commandeR"] = null;
+                int cmd = Convert.ToInt32(this.Request.Form["commandeR"].ToString().Last<char>().ToString());
+                BDGestion.Instance.SetStatutCommande(cmd, 'X');
+                Page.Response.Redirect(Page.Request.RawUrl);
             }
-
-            this.m_ListCommande = BDGestion.Instance.GetCommandesParStatut(user.Restaurant.Id, 'P').ToList();
         }
 
         public string construireHtml()
@@ -46,13 +48,13 @@ namespace Concept
 
                 foreach (KeyValuePair<Produit, uint> prod in item)
                 {
-                    html.Append(string.Format("<tr><p class=\"commande - container__description - item\">{0}x {1}</p></tr>", prod.Value.ToString(), prod.Key.Description.ToString()));
+                    html.Append(string.Format("<tr><p class=\"commande - container__description - item\">{0}x {1}</p></tr>", prod.Value.ToString(), prod.Key.Nom.ToString()));
                 }
 
                 html.Append("<tr><h3 class=\"commande - container__statut\">Statut : En attente</h3></tr></table>");
 
-                html.Append(string.Format("<input type=\"submit\" name=\"commandeA\" value=\"{0}\">", item.Identifiant.ToString()));
-                html.Append(string.Format("<input type=\"submit\" name=\"commandeR\" value=\"{0}\">", item.Identifiant.ToString()));
+                html.Append(string.Format("<input type=\"submit\" name=\"commandeA\" value=\"Accepter {0}\">", item.Identifiant.ToString()));
+                html.Append(string.Format("<input type=\"submit\" name=\"commandeR\" value=\"Refuser {0}\">", item.Identifiant.ToString()));
                 html.Append("</div>");
             }
             html.Append("</form>");

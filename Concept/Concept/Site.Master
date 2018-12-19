@@ -49,10 +49,10 @@
             </div>
             <div class="header__connection-container">
                 <i class="header__icon-u icon-user"></i>
-                <a href="#" class="header__connection-link">Se connecter</a>
+                <a runat="server" id="a_connecter" href="Authentification.aspx" class="header__connection-link">Se connecter</a>
             </div>
             <div class="header__logo-container">
-                <img src="img/logo.png" alt="Logo CONCEPT!" class="header__logo">
+                <a href="Default.aspx"><img src="img/logo.png" alt="Logo CONCEPT!" class="header__logo"></a>
             </div>
             <nav class="nav">
                 <ul class="nav__list">
@@ -62,7 +62,7 @@
                     <li class="nav__item"><a href="#" class="nav__link">Heures d'ouverture</a></li>
                 </ul>
             </nav>
-            <a href="#" class="btn btn--commander">Commander en ligne</a>
+            <a href="Commander.aspx" class="btn btn--commander">Commander en ligne</a>
         </header>
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         </asp:ContentPlaceHolder>

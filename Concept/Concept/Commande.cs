@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Concept
 {
@@ -17,13 +18,12 @@ namespace Concept
             AdresseLivraison = p_Adresse;
             Date = p_Date;
         }
-    
-        public Commande(Utilisateur p_Client, string p_Adresse, DateTime p_Date)
-        {
 
-            Client = p_Client;
-            AdresseLivraison = p_Adresse;
-            Date = p_Date;
+        public Commande(Utilisateur p_client, string p_adresse, DateTime p_Date)
+        {
+            this.Client = p_client;
+            this.AdresseLivraison = p_adresse;
+            this.Date = p_Date;
         }
 
         public int Identifiant { get; private set; }
@@ -66,7 +66,17 @@ namespace Concept
             }
         }
 
-        
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            foreach(KeyValuePair<Produit, uint> produit in this)
+            {
+                builder.Append(string.Format("{0} x {1}<br\\>", produit.Key.Nom, produit.Value));
+            }
+            return builder.ToString();
+        }
+
         public decimal CalculerTotal() => this.Sum(p => p.Key.Prix * p.Value);
 
         public IEnumerator<KeyValuePair<Produit, uint>> GetEnumerator() => this.m_Produits.GetEnumerator();

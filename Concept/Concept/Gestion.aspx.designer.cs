@@ -10,6 +10,6 @@
 namespace Concept {
     
     
-    public partial class Contact {
+    public partial class Gestion {
     }
 }

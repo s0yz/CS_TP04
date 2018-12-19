@@ -10,6 +10,6 @@
 namespace Concept {
     
     
-    public partial class Acceuil2 {
+    public partial class Default {
     }
 }

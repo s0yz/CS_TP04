@@ -11,10 +11,6 @@ namespace Concept
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (((Utilisateur)Session["Utilisateur"]).Type.Id != 'A')
-            {
-                Response.Redirect("Acceuil2.aspx");
-            }
         }
 
         protected void Upload(object sender, EventArgs e)
@@ -33,7 +29,7 @@ namespace Concept
                 Restaurant nouveauResto = new Restaurant(tb_adresse.Text, tb_telephone.Text, im_Resto.ImageUrl);
                 nouveauResto.Commit();
             }
-            Response.Redirect("Acceuil2.aspx");
+            Response.Redirect("Gestion.aspx");
         }
     }
 }

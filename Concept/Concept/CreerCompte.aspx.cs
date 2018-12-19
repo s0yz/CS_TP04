@@ -11,26 +11,29 @@ namespace Concept
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!admin())
+
+            if (Session["Utilisateur"] == null || ((Utilisateur)Session["Utilisateur"]).Type.Id != 'A')
             {
-                this.Response.Redirect("Acceuil2.aspx");
+                Response.Redirect("Default.aspx");
             }
+
         }
 
         protected void click_accepte(object sender, EventArgs e)
         {
             if (verif())
             {
-                
                 Utilisateur nouveau = new Utilisateur
                                      (this.tb_nom.Text, 
                                       this.tb_motDePasse.Text,
-                                      BDGestion.Instance.GetTypeUtilisateur(Convert.ToInt32( this.ddl_typeUtilisateur.SelectedValue)),
+                                      BDGestion.Instance.TYPE_UTILISATEUR[Convert.ToChar(this.ddl_typeUtilisateur.SelectedItem.Value)],
                                       this.tb_adresse.Text,
                                       this.tb_email.Text,
-                                      BDGestion.Instance.GetRestaurant(Convert.ToInt32( this.ddl_Restaurant.SelectedValue)));
+                                      BDGestion.Instance.GetRestaurant(Convert.ToInt32(this.ddl_Restaurant.SelectedItem.Value)));
                 BDGestion.Instance.ajouter(nouveau);
-                BDGestion.Instance.Sauvegarder();
+
+                Response.Redirect("Gestion.aspx");
+
             }
         }
 
@@ -45,10 +48,9 @@ namespace Concept
                 this.ddl_Restaurant.SelectedValue != null;
         }
 
-        private bool admin()
+        protected void Annuler(object sender, EventArgs e)
         {
-
-            return true;
+            Response.Redirect("Gestion.aspx");
         }
     }
 }
