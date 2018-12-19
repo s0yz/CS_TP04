@@ -11,10 +11,12 @@ namespace Concept
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (Session["Utilisateur"] == null || ((Utilisateur)Session["Utilisateur"]).Type.Id != 'A')
             {
                 Response.Redirect("Acceuil2.aspx");
             }
+
         }
 
         protected void click_accepte(object sender, EventArgs e)
@@ -29,7 +31,9 @@ namespace Concept
                                       this.tb_email.Text,
                                       BDGestion.Instance.GetRestaurant(Convert.ToInt32(this.ddl_Restaurant.SelectedItem.Value)));
                 BDGestion.Instance.ajouter(nouveau);
-                Response.Redirect("Acceuil2.aspx");
+
+                Response.Redirect("Gestion.aspx");
+
             }
         }
 
@@ -42,6 +46,11 @@ namespace Concept
                 this.tb_email.Text != null &&
                 this.tb_adresse.Text != null &&
                 this.ddl_Restaurant.SelectedValue != null;
+        }
+
+        protected void Annuler(object sender, EventArgs e)
+        {
+            Response.Redirect("Gestion.aspx");
         }
     }
 }

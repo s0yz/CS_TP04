@@ -36,6 +36,16 @@ namespace Concept
 
         public StatutCommande Statut { get; private set; }
 
+        public Dictionary<Produit, uint> Produits { get
+            {
+                return this.m_Produits;
+            }
+            private set
+            {
+                this.m_Produits = value;
+            }
+        }
+
         public void Ajouter(Produit p_produit, uint p_quantite)
         {
             if (this.m_Produits.ContainsKey(p_produit))
@@ -55,6 +65,7 @@ namespace Concept
                 }
             }
         }
+
 
         public override string ToString()
         {

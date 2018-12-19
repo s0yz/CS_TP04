@@ -18,7 +18,11 @@ namespace Concept
         {
             if (this.UtilisateurIdentif())
             {
-               this.Response.Redirect("Acceuil2.aspx");
+                Utilisateur u = (Utilisateur)this.Session["Utilisateur"];
+                if (u.Type.Id == 'A')
+                    this.Response.Redirect("Gestion.aspx");
+                else
+                    this.Response.Redirect("Default.aspx");
             }
         }
 

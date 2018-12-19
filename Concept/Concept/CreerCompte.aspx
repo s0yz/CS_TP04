@@ -30,7 +30,7 @@
         <div class="conteneur_btn">
            
             <asp:Button Text="Accepter" runat="server" CssClass="btn" OnClick="click_accepte" />
-            <asp:Button Text="Annuler" runat="server" CssClass="btn" />
+            <asp:Button Text="Annuler" runat="server" CssClass="btn" OnClick="Annuler" />
              <asp:SqlDataSource ID="SqlDataRestaurant" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [id_restaurant] FROM [tbl_restaurant] ORDER BY [id_restaurant]"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataTypeUtilisateur" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [desc_type], [id_type] FROM [tbl_type_utilisateur] ORDER BY [id_type]"></asp:SqlDataSource>
         </div>

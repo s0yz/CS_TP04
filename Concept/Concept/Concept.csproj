@@ -112,7 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="Acceuil2.aspx" />
+    <Content Include="Default.aspx" />
     <Content Include="Authentification.aspx" />
     <Content Include="Commander.aspx" />
     <Content Include="Contact.aspx" />
@@ -120,6 +120,7 @@
     <Content Include="CreerRestaurant.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Gestion.aspx" />
     <Content Include="GestionMenu.aspx" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -131,6 +132,7 @@
     <Content Include="monCss.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Fonctions.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -166,12 +168,12 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Acceuil2.aspx.cs">
-      <DependentUpon>Acceuil2.aspx</DependentUpon>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Acceuil2.aspx.designer.cs">
-      <DependentUpon>Acceuil2.aspx</DependentUpon>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
@@ -219,6 +221,13 @@
     </Compile>
     <Compile Include="CreerRestaurant.aspx.designer.cs">
       <DependentUpon>CreerRestaurant.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion.aspx.cs">
+      <DependentUpon>Gestion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Gestion.aspx.designer.cs">
+      <DependentUpon>Gestion.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionMenu.aspx.cs">
       <DependentUpon>GestionMenu.aspx</DependentUpon>

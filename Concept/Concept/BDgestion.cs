@@ -13,7 +13,6 @@ namespace Concept
         public readonly IDictionary<char, StatutCommande> STATUT_COMMANDE;
         public readonly IDictionary<char, CategorieProduit> CATEGORIE_PRODUIT;
         public readonly IDictionary<char, TypeUtilisateur> TYPE_UTILISATEUR;
-        //Soyez sur d'avoir une référence a votre MDF local!!!
         private SqlConnection m_Connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Concept.mdf;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True");
         private BDGestion() {
             m_Connection.Open();
@@ -97,29 +96,18 @@ namespace Concept
             //Verifier
             if (reader.Read())
             {
+
                 int id_menu = Convert.ToInt32(reader["id_menu"]);
                 foreach (Produit produit in p_Menu.ListeProduit)
                 {
-                    command = new SqlCommand("AjouterAuMenu", this.m_Connection)
-                    { CommandType = CommandType.StoredProcedure };
-                    command.Parameters.AddWithValue("@p_Id_Menu", id_menu);
-                    command.Parameters.AddWithValue("@p_Id_Produit", produit.Id);
-                    command.ExecuteNonQuery();
+                  command = new SqlCommand("AjouterAuMenu", this.m_Connection)
+                  { CommandType = CommandType.StoredProcedure };
+                  command.Parameters.AddWithValue("@p_Id_Menu", id_menu);
+                  command.Parameters.AddWithValue("@p_Id_Produit", produit.Id);
+                  command.ExecuteNonQuery();
                 }
             }
             reader.Close();
-        }
-
-        // Peut-être pas nécessaire...
-        public void Sauvegarder()
-        {
-            // TODO
-        }
-
-        public IList<Commande> GetCommandes()
-        {
-
-            return null;
         }
 
         public IList<Commande> GetCommandes(int p_Id_User)
@@ -179,20 +167,12 @@ namespace Concept
             SqlDataReader reader = command.ExecuteReader();
             List<Produit> produits = new List<Produit>();
             while (reader.Read()) {
-                //produits.Add(new Produit(
-                //    (int)reader["id_produit"],
-                //    (string)reader["nom"],
-                //    (string)reader["desc_prod"],
-                //    (decimal)reader["prix"],
-                //    (string)reader["path_image"],
-                //    this.CATEGORIE_PRODUIT[(char)reader["id_cat"]]
-                //));
                 produits.Add(new Produit(
                     reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
                     reader.GetDecimal(3),
-                    "",//reader.GetString(4),
+                    reader["path_image"] == DBNull.Value ? null : reader.GetString(4),
                     this.CATEGORIE_PRODUIT[Convert.ToChar(reader["id_cat"])]
                     ));
             }
@@ -213,19 +193,13 @@ namespace Concept
                         product_reader.GetString(1),
                         product_reader.GetString(2),
                         product_reader.GetDecimal(3),
-                        product_reader.GetString(4),
+                        product_reader["path_image"] == DBNull.Value ? null : product_reader.GetString(4),
                         this.CATEGORIE_PRODUIT[Convert.ToChar(product_reader["id_cat"])]
                     ),
                     (uint)Convert.ToInt32(product_reader["nb"]));
             }
             product_reader.Close();
             return commandes;
-        }
-
-        public Produit GetProduit(int p_Id)
-        {
-            // TODO
-            return null;
         }
 
         public IList<Restaurant> GetRestaurants()
@@ -309,13 +283,13 @@ namespace Concept
             SqlDataReader reader = command.ExecuteReader();
             //Verifier
             if (reader.Read())
-            {
+            {                
                 Utilisateur user = new Utilisateur(
                     reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
                     TYPE_UTILISATEUR[Convert.ToChar(reader["id_type"])],
-                    Convert.ToString(reader["adresse"]),
+                    reader["adresse"] == DBNull.Value ? "" : Convert.ToString(reader["adresse"]),
                     Convert.ToString(reader["email"]),
                     this.GetRestaurant(Convert.ToInt32(reader["id_restaurant"] as int? ?? default(int))),
                     this.GetCommandes(Convert.ToInt32(reader["id_utilisateur"]))

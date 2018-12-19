@@ -13,6 +13,15 @@ namespace Concept {
     public partial class GestionMenu {
         
         /// <summary>
+        /// Contrôle PH_CreationMenu.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PH_CreationMenu;
+        
+        /// <summary>
         /// Contrôle lbl_restaurant.
         /// </summary>
         /// <remarks>
@@ -92,5 +101,14 @@ namespace Concept {
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView view_Produits;
+        
+        /// <summary>
+        /// Contrôle PH_Message.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PH_Message;
     }
 }
