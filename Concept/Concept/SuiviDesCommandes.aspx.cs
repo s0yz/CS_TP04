@@ -15,7 +15,7 @@ namespace Concept
         {
             if (Session["Utilisateur"] == null || ((Utilisateur)Session["Utilisateur"]).Type.Id != 'G')
             {
-                Response.Redirect("Acceuil2.aspx");
+                Response.Redirect("Default.aspx");
             }
             Utilisateur user = (Utilisateur)this.Session["Utilisateur"];
             this.m_ListCommande = BDGestion.Instance.GetCommandesParStatut(user.Restaurant.Id, 'P');
